@@ -1,0 +1,35 @@
+.jobInput {
+  position: fixed;
+  background-color: white;
+  top: 50vh;
+  right: 50vw;
+  transform: translate(50%, -50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.jobInput > input {
+  height: 30px;
+  margin-left: 1px;
+  padding: 10px;
+}
+.jobInput > input + input {
+  margin-top: 10px;
+}
+
+.jobInput > button {
+  width: 50px;
+  margin: 10px auto 0 auto;
+  cursor: pointer;
+}
+
+.jobInput__textArea {
+  margin-top: 11px;
+}
+
+.ck-editor__editable {
+  height: 200px !important;
+  overflow-y: scroll;
+  padding: 0 10px;
+}
