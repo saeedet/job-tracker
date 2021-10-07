@@ -4,9 +4,9 @@ import "./styles/Jobs.css";
 import { Job } from "../types/JobTypes";
 
 interface Props {
-  jobs: Job[];
-  setDisplayDetails: (param: boolean) => void;
-  setSelectedJob: (param: string) => void;
+  jobs: Job[] | [];
+  setDisplayDetails: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedJob: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Jobs: React.FC<Props> = ({ jobs, setDisplayDetails, setSelectedJob }) => {

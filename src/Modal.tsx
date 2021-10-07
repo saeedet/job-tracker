@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 
 interface Props {
   displayInput: boolean;
-  setDisplayInput: (param: boolean) => void;
+  setDisplayInput: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Modal: React.FC<Props> = ({

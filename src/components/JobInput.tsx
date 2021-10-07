@@ -3,22 +3,30 @@ import "./styles/JobInput.css";
 import { v4 as uuidv4 } from "uuid";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { Job } from "../types/JobTypes";
 
-const JobInput = ({ setDisplayInput, setJobs }) => {
-  const companyRef = useRef(null);
-  const jobTitleRef = useRef(null);
-  const [jobText, setJobText] = useState();
-  const submitHandler = (event: any) => {
+interface Props {
+  setDisplayInput: React.Dispatch<React.SetStateAction<boolean>>;
+  setJobs: React.Dispatch<React.SetStateAction<Job[] | []>>;
+}
+
+const JobInput: React.FC<Props> = ({ setDisplayInput, setJobs }) => {
+  const companyRef = useRef<HTMLInputElement>(null);
+  const jobTitleRef = useRef<HTMLInputElement>(null);
+  const [jobText, setJobText] = useState<string>("");
+  const submitHandler = (
+    event: React.FormEvent<HTMLFormElement | HTMLButtonElement>
+  ) => {
     event.preventDefault();
-    let newJobObject = {
+    let newJobObject: Job = {
       id: uuidv4(),
       company: companyRef.current.value,
       title: jobTitleRef.current.value,
       text: jobText,
       status: "applied",
-      date: new Date(),
+      date: new Date().toString(),
     };
-    setJobs((prev) => [...prev, newJobObject]);
+    setJobs((prev: Job[]): Job[] => [...prev, newJobObject]);
     setDisplayInput(false);
   };
   return (
@@ -30,7 +38,7 @@ const JobInput = ({ setDisplayInput, setJobs }) => {
       <CKEditor
         editor={ClassicEditor}
         data=""
-        onChange={(event, editor) => {
+        onChange={(event: any, editor: any) => {
           const data = editor.getData();
           setJobText(data);
         }}

@@ -5,9 +5,9 @@ interface Props {
   id: string;
   company: string;
   title: string;
-  status?: string;
-  setDisplayDetails: (param: boolean) => void;
-  setSelectedJob: (param: string) => void;
+  status: string;
+  setDisplayDetails: React.Dispatch<React.SetStateAction<boolean>>;
+  setSelectedJob: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Card: React.FC<Props> = ({

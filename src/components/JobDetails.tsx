@@ -4,30 +4,28 @@ import { Job } from "../types/JobTypes";
 import parse from "html-react-parser";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { changeStatus, changeText, deleteJob } from "../utils/utils";
 
 interface Props {
+  setJobs: React.Dispatch<React.SetStateAction<Job[] | []>>;
   selectedJob: string;
-  jobs: Job[];
-  deleteJob: (id: string) => void;
-  setDisplayDetails: (param: boolean) => void;
-  changeStatus: (status: string, id: string) => void;
-  changeText: (text: string, id: string) => void;
+  jobs: [] | Job[];
+  setDisplayDetails: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const JobDetails: React.FC<Props> = ({
+  setJobs,
   selectedJob,
   jobs,
-  deleteJob,
   setDisplayDetails,
-  changeStatus,
-  changeText,
 }) => {
-  const [edit, setEdit] = useState(false);
-  const [textToChange, setTextToChange] = useState("");
-  const thisJob: Job[] = jobs.filter((job) => job.id === selectedJob);
+  const [edit, setEdit] = useState<boolean>(false);
+  const [textToChange, setTextToChange] = useState<string>("");
 
-  const statusHandler = (e: any) => {
-    changeStatus(e.target.value, thisJob[0].id);
+  const thisJob: Job[] = jobs.filter((job: Job) => job.id === selectedJob);
+
+  const statusHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setJobs(changeStatus(event.target.value, thisJob[0].id, jobs));
   };
 
   return (
@@ -82,7 +80,7 @@ const JobDetails: React.FC<Props> = ({
         <div className="jobDetails__headerButtons">
           <button
             onClick={() => {
-              deleteJob(thisJob[0].id);
+              setJobs(deleteJob(thisJob[0].id, jobs));
               setDisplayDetails(false);
             }}
           >
@@ -110,7 +108,7 @@ const JobDetails: React.FC<Props> = ({
           <button
             className="saveChange"
             onClick={() => {
-              changeText(textToChange, thisJob[0].id);
+              setJobs(changeText(textToChange, thisJob[0].id, jobs));
               setEdit(false);
             }}
           >
