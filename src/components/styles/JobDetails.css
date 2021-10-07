@@ -22,8 +22,13 @@
 }
 .jobDetails__headerTexts {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.jobDetails__headerTexts > span {
+  font-size: 12px;
 }
 .jobDetails__headerButtons {
   display: flex;

@@ -1,4 +1,5 @@
 .jobs {
   display: flex;
   flex-wrap: wrap;
+  padding: 7px;
 }

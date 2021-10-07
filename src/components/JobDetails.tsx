@@ -74,8 +74,10 @@ const JobDetails: React.FC<Props> = ({
         </div>
         <div className="jobDetails__headerTexts">
           <h1>{thisJob[0].company}</h1>
-          <h1>-</h1>
-          <h2>{thisJob[0].title}</h2>
+          <h4>{thisJob[0].title}</h4>
+          <span>
+            applied on {new Date(thisJob[0].date).toLocaleDateString()}
+          </span>
         </div>
         <div className="jobDetails__headerButtons">
           <button

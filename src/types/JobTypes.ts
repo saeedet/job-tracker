@@ -3,5 +3,6 @@ export type Job = {
   company: string;
   title: string;
   text?: string;
-  status?: string;
+  status: string;
+  date?: string;
 };

@@ -16,6 +16,7 @@ const JobInput = ({ setDisplayInput, setJobs }) => {
       title: jobTitleRef.current.value,
       text: jobText,
       status: "applied",
+      date: new Date(),
     };
     setJobs((prev) => [...prev, newJobObject]);
     setDisplayInput(false);
