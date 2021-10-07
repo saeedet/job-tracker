@@ -1,10 +1,11 @@
 import React from "react";
-import "./Card.css";
+import "./styles/Card.css";
 
 interface Props {
   id: string;
   company: string;
   title: string;
+  status?: string;
   setDisplayDetails: (param: boolean) => void;
   setSelectedJob: (param: string) => void;
 }
@@ -13,12 +14,15 @@ const Card: React.FC<Props> = ({
   id,
   company,
   title,
+  status,
   setDisplayDetails,
   setSelectedJob,
 }) => {
   return (
     <div
-      className="card"
+      className={`card ${status === "rejected" && "rejected"} ${
+        status === "interview" && "interview"
+      } `}
       onClick={() => {
         setDisplayDetails(true);
         setSelectedJob(id);

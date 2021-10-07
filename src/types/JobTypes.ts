@@ -1,1 +1,7 @@
-export type Job = { id: string; company: string; title: string; text?: string };
+export type Job = {
+  id: string;
+  company: string;
+  title: string;
+  text?: string;
+  status?: string;
+};

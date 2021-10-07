@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "./Card";
-import "./Jobs.css";
+import "./styles/Jobs.css";
 import { Job } from "../types/JobTypes";
 
 interface Props {
@@ -19,6 +19,7 @@ const Jobs: React.FC<Props> = ({ jobs, setDisplayDetails, setSelectedJob }) => {
         <Card
           key={job.id}
           id={job.id}
+          status={job.status}
           company={job.company}
           title={job.title}
           setDisplayDetails={setDisplayDetails}

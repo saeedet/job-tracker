@@ -14,3 +14,11 @@
   box-shadow: 0 0 2px black;
   transform: scale(0.99);
 }
+
+.rejected {
+  background-color: rgba(131, 16, 16, 0.411);
+}
+
+.interview {
+  background-color: rgba(74, 189, 74, 0.438);
+}

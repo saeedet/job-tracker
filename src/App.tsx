@@ -4,6 +4,7 @@ import JobDetails from "./components/JobDetails";
 import JobInput from "./components/JobInput";
 import Jobs from "./components/Jobs";
 import Modal from "./Modal";
+import { Job } from "./types/JobTypes";
 
 function App() {
   const [displayInput, setDisplayInput] = useState(false);
@@ -26,7 +27,27 @@ function App() {
     const newJobs = currentJobs.filter((job) => job.id !== id);
     setJobs(newJobs);
   };
+  const changeStatus = (status: string, id: string) => {
+    const currentJobs = JSON.parse(JSON.stringify(jobs));
+    // here we do change
+    for (let i = 0; i < currentJobs.length; i++) {
+      if (currentJobs[i].id === id) {
+        currentJobs[i].status = status;
+      }
+    }
 
+    setJobs(currentJobs);
+  };
+
+  const changeText = (text: string, id: string) => {
+    const currentJobs = JSON.parse(JSON.stringify(jobs));
+    for (let i = 0; i < currentJobs.length; i++) {
+      if (currentJobs[i].id === id) {
+        currentJobs[i].text = text;
+      }
+    }
+    setJobs(currentJobs);
+  };
   return (
     <div className="app">
       <header className="app__header">
@@ -41,6 +62,8 @@ function App() {
           jobs={jobs}
           deleteJob={deleteJob}
           setDisplayDetails={setDisplayDetails}
+          changeStatus={changeStatus}
+          changeText={changeText}
         />
       </Modal>
       <Jobs

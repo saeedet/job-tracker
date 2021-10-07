@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import "./JobInput.css";
+import "./styles/JobInput.css";
 import { v4 as uuidv4 } from "uuid";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
@@ -15,6 +15,7 @@ const JobInput = ({ setDisplayInput, setJobs }) => {
       company: companyRef.current.value,
       title: jobTitleRef.current.value,
       text: jobText,
+      status: "applied",
     };
     setJobs((prev) => [...prev, newJobObject]);
     setDisplayInput(false);
@@ -24,7 +25,7 @@ const JobInput = ({ setDisplayInput, setJobs }) => {
       <input type="text" placeholder="Company" ref={companyRef} />
       <input type="text" placeholder="Job title" ref={jobTitleRef} />
 
-      <div className="jobInput__textArea"></div>
+      <div className="jobInput__textArea" />
       <CKEditor
         editor={ClassicEditor}
         data=""
