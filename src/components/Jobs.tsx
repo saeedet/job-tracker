@@ -2,6 +2,7 @@ import React from "react";
 import Card from "./Card";
 import "./styles/Jobs.css";
 import { Job } from "../types/JobTypes";
+import FlipMove from "react-flip-move";
 
 interface Props {
   jobs: Job[] | [];
@@ -14,7 +15,7 @@ const Jobs: React.FC<Props> = ({ jobs, setDisplayDetails, setSelectedJob }) => {
   jobsArray.reverse();
 
   return (
-    <div className="jobs">
+    <FlipMove className="jobs">
       {jobsArray?.map((job: Job) => (
         <Card
           key={job.id}
@@ -26,7 +27,7 @@ const Jobs: React.FC<Props> = ({ jobs, setDisplayDetails, setSelectedJob }) => {
           setSelectedJob={setSelectedJob}
         />
       ))}
-    </div>
+    </FlipMove>
   );
 };
 

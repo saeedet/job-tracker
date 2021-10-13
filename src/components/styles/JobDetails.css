@@ -71,6 +71,8 @@
 }
 .jobDetails__main {
   padding: 20px 50px;
+  max-height: 80vh;
+  overflow-y: scroll;
 }
 
 .saveChange {

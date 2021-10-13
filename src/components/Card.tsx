@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import "./styles/Card.css";
 
 interface Props {
@@ -10,28 +10,27 @@ interface Props {
   setSelectedJob: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Card: React.FC<Props> = ({
-  id,
-  company,
-  title,
-  status,
-  setDisplayDetails,
-  setSelectedJob,
-}) => {
-  return (
-    <div
-      className={`card ${status === "rejected" && "rejected"} ${
-        status === "interview" && "interview"
-      } `}
-      onClick={() => {
-        setDisplayDetails(true);
-        setSelectedJob(id);
-      }}
-    >
-      <h3>{company}</h3>
-      <h5>{title}</h5>
-    </div>
-  );
-};
+const Card: React.FC<Props> = forwardRef(
+  (
+    { id, company, title, status, setDisplayDetails, setSelectedJob },
+    ref: React.ForwardedRef<HTMLDivElement>
+  ) => {
+    return (
+      <div
+        ref={ref}
+        className={`card ${status === "rejected" && "rejected"} ${
+          status === "interview" && "interview"
+        } `}
+        onClick={() => {
+          setDisplayDetails(true);
+          setSelectedJob(id);
+        }}
+      >
+        <h3>{company}</h3>
+        <h5>{title}</h5>
+      </div>
+    );
+  }
+);
 
 export default Card;
