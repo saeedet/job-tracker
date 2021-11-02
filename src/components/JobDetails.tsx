@@ -5,6 +5,7 @@ import parse from "html-react-parser";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { changeStatus, changeText, deleteJob } from "../utils/utils";
+import fromnow from "fromnow";
 
 interface Props {
   setJobs: React.Dispatch<React.SetStateAction<Job[] | []>>;
@@ -74,7 +75,9 @@ const JobDetails: React.FC<Props> = ({
           <h1>{thisJob[0].company}</h1>
           <h4>{thisJob[0].title}</h4>
           <span>
-            applied on {new Date(thisJob[0].date).toLocaleDateString()}
+            {/* applied on {new Date(thisJob[0].date).toLocaleDateString()} */}
+            applied on
+            {fromnow(thisJob[0].date, { and: true, suffix: true, max: 2 })}
           </span>
         </div>
         <div className="jobDetails__headerButtons">

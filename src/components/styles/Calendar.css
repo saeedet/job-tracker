@@ -61,6 +61,7 @@
   --color-day-L2-bg: #40c463;
   --color-day-L3-bg: #30a14e;
   --color-day-L4-bg: #216e39;
+  --color-day-L5-bg: #18532b;
 }
 .calendar__day__info {
   padding: 5px 10px;

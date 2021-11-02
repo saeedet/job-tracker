@@ -45,7 +45,9 @@ const GithubTracker: React.FC<Props> = ({ jobs }) => {
                 className="calendar__day"
                 style={{
                   backgroundColor: day[4]
-                    ? `var(--color-day-L${day[4] > 4 ? "4" : day[4]}-bg)`
+                    ? `var(--color-day-L${
+                        day[4] > 10 ? "5" : day[4] > 4 ? "4" : day[4]
+                      }-bg)`
                     : "#ebedf0",
                 }}
               >

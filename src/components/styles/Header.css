@@ -11,7 +11,6 @@
   flex: 1;
   display: flex;
   align-items: center;
-
   height: 100%;
 }
 .header__leftInputs {
@@ -91,24 +90,36 @@
   cursor: pointer;
 }
 .jobs__tab {
-  border-right: 1px solid white;
+  color: gray;
+  font-weight: bold;
+  border-right: 1px solid rgba(128, 128, 128, 0.363);
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  /* background-image: radial-gradient(to center, white, transparent); */
+  background-image: radial-gradient(transparent, white);
 }
 .calendar__tab {
+  color: gray;
+  font-weight: bold;
   border-left: 1px solid white;
+  background-image: radial-gradient(transparent, white);
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
 }
 .jobs__tab:hover,
 .calendar__tab:hover {
   color: white;
 }
 .calendar__tab__selected {
-  background-image: linear-gradient(to right, white, transparent);
+  color: white;
+  background-image: radial-gradient(transparent, transparent, white);
+  /* border: 1px solid white; */
 }
+
 .jobs__tab__selected {
-  background-image: linear-gradient(to left, white, transparent);
+  color: white;
+  background-image: radial-gradient(transparent, transparent, white);
+  /* border: 1px solid white; */
 }
 .header__middle {
   padding: 0 20px;

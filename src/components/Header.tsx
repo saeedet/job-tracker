@@ -95,7 +95,7 @@ const Header: React.FC<Props> = ({ setDisplayInput, setJobs, jobs }) => {
             }`}
             onClick={() => handleTabChange("calendar")}
           >
-            Calendar
+            Commits
           </div>
         </div>
         <button onClick={() => setJobs([])}>Clear All</button>

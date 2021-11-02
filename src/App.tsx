@@ -9,7 +9,6 @@ import { useContextProvider } from "./context/StateProvider";
 import Modal from "./Modal";
 import { Job } from "./types/JobTypes";
 import { giveMeDumyData } from "./utils/utils";
-import { giveMeYearArray } from "./utils/utils";
 
 function App() {
   const [displayInput, setDisplayInput] = useState<boolean>(false);
