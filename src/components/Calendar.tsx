@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Job } from "../types/JobTypes";
 import { giveMeYearArray } from "../utils/utils";
 import "./styles/Calendar.css";
@@ -14,17 +14,15 @@ const Calendar: React.FC<Props> = ({ year, jobs }) => {
   if (year.length) {
     let yearArray = giveMeYearArray();
     let week = [
-      [1, 2, 3, 4],
-      [5, 6, 7, 8],
-      [9, 10, 11, 12],
-      [13, 14, 15, 16],
+      ["Mon", "Dec", 28, 2020, 0],
+      ["Tue", "Dec", 29, 2020, 0],
+      ["Wed", "Dec", 30, 2020, 0],
+      ["Thu", "Dec", 31, 2020, 0],
     ];
     let dayFlag = 5;
     const today = new Date().toDateString().split(" ");
     for (let i = 0; i < yearArray.length; i++) {
       let jobApplied = 0;
-      //   console.log(yearArray[i]);
-      //   console.log(jobs[0].date.split(" ").slice(0, 4));
       for (let j = 0; j < jobs.length; j++) {
         const job = jobs[j].date.split(" ").slice(0, 4);
         if (
@@ -76,7 +74,7 @@ const Calendar: React.FC<Props> = ({ year, jobs }) => {
               }}
             >
               {year &&
-                weeklyYear?.map((week) => (
+                weeklyYear?.map((week, index) => (
                   <div className="calendar__week">
                     {week.map((day: number[] | string[]) => (
                       <div
@@ -89,7 +87,23 @@ const Calendar: React.FC<Props> = ({ year, jobs }) => {
                               }-bg)`
                             : "#ebedf0",
                         }}
-                      ></div>
+                      >
+                        <div
+                          className="calendar__day__info"
+                          style={{
+                            transform:
+                              index > weeklyYear.length - 7
+                                ? ""
+                                : index < 7
+                                ? "translateX(100%)"
+                                : "translateX(50%)",
+                          }}
+                        >
+                          <div>{`${day[4] ? day[4] : "No"} jobs applied on ${
+                            day[2]
+                          } ${day[1]}, ${day[3]}`}</div>
+                        </div>
+                      </div>
                     ))}
                   </div>
                 ))}

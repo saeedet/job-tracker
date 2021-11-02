@@ -2,7 +2,9 @@ import { Job } from "../types/JobTypes";
 
 export const giveMeDumyData = (): Job[] => {
   const currentJobs = [];
+  const yearArray = giveMeYearArray();
   for (let i = 0; i < 25; i++) {
+    const randomDate = yearArray[Math.floor(Math.random() * yearArray.length)];
     currentJobs.push({
       id: "testID" + i,
       company: "CompanyTEST" + i,
@@ -11,9 +13,7 @@ export const giveMeDumyData = (): Job[] => {
       status: `${
         i % 5 === 0 ? "interview" : i % 7 === 0 ? "rejected" : "applied"
       }`,
-      date: `Thu Oct ${
-        i === 0 ? "01" : i < 10 ? `0${i + 1}` : i + 1
-      } 2021 13:53:30 GMT+1100 (Australian Eastern Daylight Time)`,
+      date: `${randomDate[0]} ${randomDate[1]} ${randomDate[2]} ${randomDate[3]}`,
     });
   }
   return currentJobs;

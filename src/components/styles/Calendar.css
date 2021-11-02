@@ -16,8 +16,9 @@
   padding: 20px 40px;
   background-color: white;
 }
+
 .calendar__box {
-  padding: 10px;
+  padding: 40px 20px;
   border: 2px solid rgba(128, 128, 128, 0.342);
   border-radius: 4px 4px 2px 2px;
   width: max-content;
@@ -26,7 +27,7 @@
   position: relative;
   display: flex;
   justify-content: flex-end;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 .calendar__year {
   display: grid;
@@ -42,9 +43,9 @@
 }
 .calendar__day {
   border: 1px solid rgba(27, 31, 35, 0.06);
-  /* border: 1px solid #afb8c1; */
+
   border-radius: 2px;
-  /* width: 11px; */
+  position: relative;
 }
 * {
   --color-day-L1-bg: #9be9a8;
@@ -52,7 +53,27 @@
   --color-day-L3-bg: #30a14e;
   --color-day-L4-bg: #216e39;
 }
+.calendar__day__info {
+  padding: 5px 10px;
+  position: absolute;
+  bottom: 12px;
+  right: 50%;
+  /* transform: translateX(50%); */
+  width: max-content;
+  background-color: rgba(0, 0, 0, 0.753);
+  border-radius: 5px;
+  color: white;
+  display: none;
+  z-index: 99;
+}
 
+.calendar__day__info > div {
+  font-size: small;
+  margin-top: -2px;
+}
+.calendar__day:hover > .calendar__day__info {
+  display: inline;
+}
 @media (max-width: 700px) {
   .calendar__box {
     width: 80vw;
