@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Job } from "../types/JobTypes";
-import { giveMeGithubBox } from "../utils/utils";
+import { giveMeGithubBox, months } from "../utils/utils";
 import "./styles/Calendar.css";
 
 interface Props {
@@ -9,9 +9,25 @@ interface Props {
 
 const GithubTracker: React.FC<Props> = ({ jobs }) => {
   const [boxes, setBoxes] = useState<any>([]);
+  const [boxMonths, setBoxMonths] = useState<any>([]);
 
   useEffect(() => {
-    setBoxes(giveMeGithubBox(jobs));
+    const calendar = giveMeGithubBox(jobs);
+    console.log(calendar);
+    setBoxes(calendar);
+    const sortedMonths = [];
+    const today = new Date().toString().split(" ").slice(1, 3);
+
+    let startPoint = months.indexOf(today[0]);
+    for (let i = 0; i < 12; i++) {
+      sortedMonths.push(months[startPoint]);
+      if (startPoint === 0) {
+        startPoint = 11;
+      } else {
+        startPoint--;
+      }
+    }
+    setBoxMonths(sortedMonths.reverse());
   }, [jobs]);
 
   return (
@@ -22,6 +38,11 @@ const GithubTracker: React.FC<Props> = ({ jobs }) => {
           gridTemplateColumns: `repeat(${boxes.length + 1}, 11px)`,
         }}
       >
+        <div className="calendar__months">
+          {boxMonths?.map((month) => (
+            <div>{month}</div>
+          ))}
+        </div>
         <div className="calendar__week">
           <div></div>
           <div className="dayName">
@@ -46,7 +67,15 @@ const GithubTracker: React.FC<Props> = ({ jobs }) => {
                 style={{
                   backgroundColor: day[4]
                     ? `var(--color-day-L${
-                        day[4] > 10 ? "5" : day[4] > 4 ? "4" : day[4]
+                        day[4] > 15
+                          ? "5"
+                          : day[4] > 12
+                          ? "4"
+                          : day[4] > 8
+                          ? "3"
+                          : day[4] > 4
+                          ? "2"
+                          : "1"
                       }-bg)`
                     : "#ebedf0",
                 }}

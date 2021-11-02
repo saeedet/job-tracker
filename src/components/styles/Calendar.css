@@ -14,19 +14,39 @@
 }
 
 .calendar__box {
-  margin: 20px;
+  margin: 40px;
   padding: 40px 20px 40px 30px;
   border: 2px solid rgba(128, 128, 128, 0.342);
   border-radius: 4px 4px 2px 2px;
   width: max-content;
   height: max-content;
   max-width: 870px;
-  position: relative;
   display: flex;
+  /* flex-direction: column; */
   justify-content: flex-end;
   overflow-x: hidden;
 }
+.calendar__months {
+  position: absolute;
+  top: -40px;
+  width: max-content;
+  left: 45px;
+  height: 40px;
+  /* background-color: rgba(255, 0, 0, 0.329); */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: xx-small;
+  color: rgba(0, 0, 0, 0.805);
+}
+.calendar__months > div {
+  margin-bottom: -10px;
+  width: 66px;
+  display: flex;
+  justify-content: center;
+}
 .calendar__year {
+  position: relative;
   display: grid;
   width: max-content;
   grid-gap: 4px 4px;
@@ -40,7 +60,7 @@
 }
 .dayName {
   font-size: xx-small;
-  color: rgba(0, 0, 0, 0.705);
+  color: rgba(0, 0, 0, 0.805);
   position: relative;
 }
 .dayName > div {

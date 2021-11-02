@@ -108,53 +108,90 @@ export const giveMeYearArray = (num = 1) => {
     "Dec",
   ];
   const totalDays: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-  const week: string[] = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-  let baseYear: number = 2021;
+  const week: string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   const calendar = [];
+  const today = new Date().toDateString().split(" ");
+  let weekFlag = week.indexOf(today[0]);
+  let monthFlag = months.indexOf(today[1]);
+  let dayFlag = parseInt(today[2]);
+  let yearFlag = today[3];
 
-  let weekFlag = 4;
-  for (let k = 0; k < num; k++) {
-    const year = [];
-    baseYear += k;
-    for (let i = 0; i < months.length; i++) {
-      // console.log(`${months[i]} - ${totalDays[i]}`);
-      const monthDays = [];
-
-      for (let j = 0; j < totalDays[i]; j++) {
-        let date: string = "";
-        if (j < 9) {
-          date = "0" + (j + 1);
-        } else {
-          date = `${j + 1}`;
-        }
-        calendar.push([week[weekFlag], months[i], date, baseYear.toString()]);
-        if (weekFlag === 6) {
-          weekFlag = 0;
-        } else {
-          weekFlag++;
-        }
+  for (let i = 0; i < months.length; i++) {
+    for (let j = 0; j < totalDays[monthFlag]; j++) {
+      let date: string = "";
+      if (dayFlag < 10) {
+        date = "0" + dayFlag;
+      } else {
+        date = `${dayFlag}`;
       }
-      // year.push(monthDays);
+      calendar.push([week[weekFlag], months[monthFlag], date, yearFlag]);
+      if (weekFlag === 0) {
+        weekFlag = 6;
+      } else {
+        weekFlag--;
+      }
+      if (dayFlag === 1) {
+        if (monthFlag === 0) {
+          monthFlag = 11;
+          dayFlag = totalDays[monthFlag];
+          yearFlag = `${parseInt(yearFlag) - 1}`;
+        } else {
+          monthFlag--;
+          dayFlag = totalDays[monthFlag];
+        }
+      } else {
+        dayFlag--;
+      }
     }
-    // calendar.push(year);
   }
 
+  // function to add extra days at the end of the calendar to make
+  // it visually more pleasant
+  const daysToFixTheEnd = week.indexOf(calendar[calendar.length - 1][0]);
+  // console.log(calendar[calendar.length - 1]);
+  if (daysToFixTheEnd !== 0) {
+    let weekFlag2 = daysToFixTheEnd;
+    let monthFlag2 = months.indexOf(calendar[calendar.length - 1][1]);
+    let dayFlag2 = parseInt(calendar[calendar.length - 1][2]);
+    let yearFlag2 = calendar[calendar.length - 1][3];
+    for (let i = daysToFixTheEnd - 1; i > -1; i--) {
+      if (dayFlag2 === 1) {
+        if (monthFlag2 === 0) {
+          monthFlag2 = 11;
+          dayFlag2 = totalDays[monthFlag2];
+          yearFlag2 = `${parseInt(yearFlag2) - 1}`;
+        } else {
+          monthFlag2--;
+          dayFlag2 = totalDays[monthFlag2];
+        }
+      } else {
+        dayFlag2--;
+      }
+      let date2: string = "";
+      if (dayFlag2 < 10) {
+        date2 = "0" + dayFlag2;
+      } else {
+        date2 = `${dayFlag2}`;
+      }
+      calendar.push([week[weekFlag2], months[monthFlag2], date2, yearFlag2]);
+    }
+  }
+  console.log(calendar);
   return calendar;
 };
 
+// function to make an array of the github box with all days and weeks stacked properly
 export const giveMeGithubBox = (jobs: Job[]) => {
   const weeklyYear = [];
   let yearArray = giveMeYearArray();
-  let week = [
-    ["Mon", "Dec", 28, 2020, 0],
-    ["Tue", "Dec", 29, 2020, 0],
-    ["Wed", "Dec", 30, 2020, 0],
-    ["Thu", "Dec", 31, 2020, 0],
-  ];
-  let dayFlag = 5;
+  const weekFlag: string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let week = [];
+
   const today = new Date().toDateString().split(" ");
-  for (let i = 0; i < yearArray.length; i++) {
+  const daysToFixTheEnd = weekFlag.indexOf(yearArray[yearArray.length - 1][0]);
+  let dayFlag = weekFlag.indexOf(today[0]);
+  for (let i = 0; i < 365 + daysToFixTheEnd; i++) {
     let jobApplied = 0;
     for (let j = 0; j < jobs.length; j++) {
       const job = jobs[j].date.split(" ").slice(0, 4);
@@ -171,25 +208,35 @@ export const giveMeGithubBox = (jobs: Job[]) => {
     week.push(yearArray[i]);
 
     // stacking days in week pattern
-    if (dayFlag === 7) {
+    if (dayFlag === 0) {
       weeklyYear.push(week);
       week = [];
-      dayFlag = 1;
+      dayFlag = 6;
+    } else if (i === 364) {
+      weeklyYear.push(week);
     } else {
-      dayFlag++;
-    }
-    // break if we reach today
-    if (
-      yearArray[i][0] === today[0] &&
-      yearArray[i][1] === today[1] &&
-      yearArray[i][2] === today[2] &&
-      yearArray[i][3] === today[3]
-    ) {
-      weeklyYear.push(week);
-      week = [];
-      dayFlag = 5;
-      break;
+      dayFlag--;
     }
   }
-  return weeklyYear;
+  // console.log(weeklyYear);
+  const finalArray = [];
+  for (let i = 0; i < weeklyYear.length; i++) {
+    finalArray.push(weeklyYear[i].reverse());
+  }
+  return finalArray.reverse();
 };
+
+export const months: string[] = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "July",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];

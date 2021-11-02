@@ -60,23 +60,26 @@ const Header: React.FC<Props> = ({ setDisplayInput, setJobs, jobs }) => {
           </div>
         </div>
         <div className="header__leftInfo">
-          <p className="app_moved">
-            <span>{moved}</span> Moved
-          </p>
-          <p className="app_waiting">
-            <span>{jobs.length - (rejected + moved)}</span> Waiting
-          </p>
-          <p className="app_rejected">
-            <span>{rejected}</span> Rejected
-          </p>
-          <p className="app_total">
-            <span>{jobs.length}</span>&nbsp;Total
-          </p>
+          <div className="header__leftInfoStats">
+            <p className="app_moved">
+              <div>{moved}</div> <div>Moved</div>
+            </p>
+            <p className="app_waiting">
+              <div>{jobs.length - (rejected + moved)}</div> <div>Waiting</div>
+            </p>
+            <p className="app_rejected">
+              <div>{rejected}</div> <div>Rejected</div>
+            </p>
+          </div>
         </div>
       </div>
       {/* middle section */}
       <div className="header__middle">
         <button onClick={() => setDisplayInput(true)}>Add a job</button>
+
+        <p className="app_total">
+          <span>{jobs.length}</span>&nbsp;Total
+        </p>
       </div>
       {/* right section */}
       <div className="header__right">
