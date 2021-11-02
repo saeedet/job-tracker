@@ -5,11 +5,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 .header__left {
   flex: 1;
   display: flex;
   align-items: center;
+
+  height: 100%;
 }
 .header__leftInputs {
   display: flex;
@@ -31,39 +34,43 @@
   margin-left: 10px;
   margin-bottom: -4px;
 }
+
 .header__leftInfo {
+  padding-left: 40px;
   flex: 1;
   display: flex;
   justify-content: center;
-  padding-left: 40px;
 }
 .header__leftInfo > p {
   font-weight: 900;
   margin: 0 15px;
 }
-/* .header__leftInfo > p + p {
-  margin-left: 30px;
-} */
+
 .app_rejected {
   color: rgba(131, 16, 16, 0.8);
+  white-space: nowrap;
 }
 
 .app_moved {
   color: rgba(74, 189, 74, 0.7);
+  white-space: nowrap;
 }
 .app_waiting {
   color: rgba(128, 128, 128, 0.904);
+  white-space: nowrap;
 }
 .app_total {
-  /* font-style: italic; */
   color: rgba(0, 0, 0, 0.575);
   font-weight: 900;
+  display: flex;
+  justify-content: center;
 }
 
 .header__right {
   flex: 1;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 .header__right > button {
   margin-right: 20px;
@@ -77,6 +84,31 @@
   flex: 1;
   display: flex;
   justify-content: center;
+}
+.header__right > div > div {
+  padding: 10px;
+  width: 70px;
+  cursor: pointer;
+}
+.jobs__tab {
+  border-right: 1px solid white;
+  display: flex;
+  justify-content: flex-end;
+}
+.calendar__tab {
+  border-left: 1px solid white;
+  display: flex;
+  justify-content: flex-start;
+}
+.jobs__tab:hover,
+.calendar__tab:hover {
+  color: white;
+}
+.calendar__tab__selected {
+  background-image: linear-gradient(to right, white, transparent);
+}
+.jobs__tab__selected {
+  background-image: linear-gradient(to left, white, transparent);
 }
 .header__middle {
   padding: 0 20px;
@@ -95,7 +127,7 @@
 }
 
 @media (max-width: 900px) {
-  .app_total_responsive {
+  .app_total {
     display: none;
   }
   .header__leftInfo {
@@ -103,5 +135,11 @@
   }
   .header__leftInfo > p {
     font-size: small;
+  }
+}
+
+@media (max-width: 700px) {
+  .header__leftTitle {
+    display: none;
   }
 }

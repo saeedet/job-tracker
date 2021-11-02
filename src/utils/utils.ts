@@ -91,3 +91,54 @@ export const giveMeSortedJobs = (sortType: string, jobs: Job[]): Job[] => {
     return currentJobs;
   }
 };
+
+export const giveMeYearArray = (num = 1) => {
+  const months: string[] = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "July",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const totalDays: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  const week: string[] = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  let baseYear: number = 2021;
+
+  const calendar = [];
+
+  let weekFlag = 4;
+  for (let k = 0; k < num; k++) {
+    const year = [];
+    baseYear += k;
+    for (let i = 0; i < months.length; i++) {
+      // console.log(`${months[i]} - ${totalDays[i]}`);
+      const monthDays = [];
+
+      for (let j = 0; j < totalDays[i]; j++) {
+        let date: string = "";
+        if (j < 9) {
+          date = "0" + (j + 1);
+        } else {
+          date = `${j + 1}`;
+        }
+        calendar.push([week[weekFlag], months[i], date, baseYear.toString()]);
+        if (weekFlag === 6) {
+          weekFlag = 0;
+        } else {
+          weekFlag++;
+        }
+      }
+      // year.push(monthDays);
+    }
+    // calendar.push(year);
+  }
+
+  return calendar;
+};
