@@ -17,7 +17,6 @@ function App() {
   const [selectedJob, setSelectedJob] = useState<string>("");
   const [{ display }, dispatch] = useContextProvider();
   const [jobs, setJobs] = useState<[] | Job[]>([]);
-  const [calendar, setCalendar] = useState<any>([]);
 
   // Setting the initital state
   useEffect(() => {
@@ -27,8 +26,6 @@ function App() {
     } else {
       setJobs(myJobs);
     }
-    // console.log(giveMeYearArray());
-    setCalendar(giveMeYearArray());
   }, []);
 
   // Printing the changes to local storage
@@ -51,7 +48,7 @@ function App() {
         />
       </Modal>
       {display === "calendar" ? (
-        <Calendar year={calendar} jobs={jobs} />
+        <Calendar jobs={jobs} />
       ) : (
         <Jobs
           jobs={jobs}

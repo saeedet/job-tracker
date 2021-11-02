@@ -142,3 +142,54 @@ export const giveMeYearArray = (num = 1) => {
 
   return calendar;
 };
+
+export const giveMeGithubBox = (jobs: Job[]) => {
+  const weeklyYear = [];
+  let yearArray = giveMeYearArray();
+  let week = [
+    ["Mon", "Dec", 28, 2020, 0],
+    ["Tue", "Dec", 29, 2020, 0],
+    ["Wed", "Dec", 30, 2020, 0],
+    ["Thu", "Dec", 31, 2020, 0],
+  ];
+  let dayFlag = 5;
+  const today = new Date().toDateString().split(" ");
+  for (let i = 0; i < yearArray.length; i++) {
+    let jobApplied = 0;
+    for (let j = 0; j < jobs.length; j++) {
+      const job = jobs[j].date.split(" ").slice(0, 4);
+      if (
+        job[0] === yearArray[i][0] &&
+        job[1] === yearArray[i][1] &&
+        job[2] === yearArray[i][2] &&
+        job[3] === yearArray[i][3]
+      ) {
+        jobApplied++;
+      }
+    }
+    yearArray[i].push(jobApplied);
+    week.push(yearArray[i]);
+
+    // stacking days in week pattern
+    if (dayFlag === 7) {
+      weeklyYear.push(week);
+      week = [];
+      dayFlag = 1;
+    } else {
+      dayFlag++;
+    }
+    // break if we reach today
+    if (
+      yearArray[i][0] === today[0] &&
+      yearArray[i][1] === today[1] &&
+      yearArray[i][2] === today[2] &&
+      yearArray[i][3] === today[3]
+    ) {
+      weeklyYear.push(week);
+      week = [];
+      dayFlag = 5;
+      break;
+    }
+  }
+  return weeklyYear;
+};
