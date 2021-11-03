@@ -5,9 +5,10 @@ import "./styles/Calendar.css";
 
 interface Props {
   jobs: [] | Job[];
+  cutJobs: (date: any) => void;
 }
 
-const GithubTracker: React.FC<Props> = ({ jobs }) => {
+const GithubTracker: React.FC<Props> = ({ jobs, cutJobs }) => {
   const [boxes, setBoxes] = useState<any>([]);
   const [boxMonths, setBoxMonths] = useState<any>([]);
 
@@ -50,6 +51,7 @@ const GithubTracker: React.FC<Props> = ({ jobs }) => {
           <div className="calendar__week">
             {week.map((day: number[] | string[]) => (
               <div
+                onClick={() => cutJobs(day)}
                 key={`${day[0]}-${day[1]}-${day[2]}-${day[3]}`}
                 className="calendar__day"
                 style={{

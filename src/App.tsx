@@ -47,7 +47,11 @@ function App() {
         />
       </Modal>
       {display === "calendar" ? (
-        <Calendar jobs={jobs} />
+        <Calendar
+          jobs={jobs}
+          setDisplayDetails={setDisplayDetails}
+          setSelectedJob={setSelectedJob}
+        />
       ) : (
         <Jobs
           jobs={jobs}

@@ -61,15 +61,15 @@ const Header: React.FC<Props> = ({ setDisplayInput, setJobs, jobs }) => {
         </div>
         <div className="header__leftInfo">
           <div className="header__leftInfoStats">
-            <p className="app_moved">
+            <div className="app_moved">
               <div>{moved}</div> <div>Moved</div>
-            </p>
-            <p className="app_waiting">
+            </div>
+            <div className="app_waiting">
               <div>{jobs.length - (rejected + moved)}</div> <div>Waiting</div>
-            </p>
-            <p className="app_rejected">
+            </div>
+            <div className="app_rejected">
               <div>{rejected}</div> <div>Rejected</div>
-            </p>
+            </div>
           </div>
         </div>
       </div>

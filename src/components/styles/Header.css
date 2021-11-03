@@ -41,7 +41,7 @@
   justify-content: center;
   align-items: center;
 }
-.header__leftInfo > div > p {
+.header__leftInfo > div > div {
   font-weight: 900;
   font-size: small;
   margin: 0 15px;
@@ -169,7 +169,7 @@
 }
 
 @media (max-width: 900px) {
-  .header__leftInfo > p {
+  .header__leftInfo > div {
     font-size: small;
   }
   .header__leftInfoStats {
