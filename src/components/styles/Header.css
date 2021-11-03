@@ -106,6 +106,7 @@
   cursor: pointer;
 }
 .jobs__tab {
+  border-radius: 5px;
   color: gray;
   font-weight: bold;
   border-right: 1px solid rgba(128, 128, 128, 0.363);
@@ -114,6 +115,7 @@
   background-image: radial-gradient(transparent, white);
 }
 .calendar__tab {
+  border-radius: 5px;
   color: gray;
   font-weight: bold;
   border-left: 1px solid white;
@@ -212,6 +214,7 @@
   }
   .jobs__tab {
     border: none;
+    margin-bottom: 2px;
   }
 }
 @media (max-width: 500px) {
