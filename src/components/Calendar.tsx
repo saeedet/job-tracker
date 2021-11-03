@@ -1,22 +1,14 @@
 import React, { useState } from "react";
 import { Job } from "../types/JobTypes";
 import GithubTracker from "./GithubTracker";
-import "./styles/Calendar.css";
+import "../styles/Calendar.css";
 import FlipMove from "react-flip-move";
 import Card from "./Card";
+import { useContextProvider } from "../context/StateProvider";
 
-interface Props {
-  jobs: [] | Job[];
-  setDisplayDetails: React.Dispatch<React.SetStateAction<boolean>>;
-  setSelectedJob: React.Dispatch<React.SetStateAction<string>>;
-}
-
-const Calendar: React.FC<Props> = ({
-  jobs,
-  setSelectedJob,
-  setDisplayDetails,
-}) => {
-  const [selectedJobs, setSelectedJobs] = useState([]);
+const Calendar: React.FC = () => {
+  const [{ jobs }] = useContextProvider();
+  const [selectedJobs, setSelectedJobs] = useState<any[]>([]);
 
   // function to cut the job array for selected day
   const cutJobs = (date: any[]) => {
@@ -39,7 +31,7 @@ const Calendar: React.FC<Props> = ({
   return (
     <div className="calendar">
       <div className="calendar__top">
-        <GithubTracker jobs={jobs} cutJobs={cutJobs} />
+        <GithubTracker cutJobs={cutJobs} />
       </div>
       <div className="calendar__bottom">
         <FlipMove className="jobs calendar__jobs">
@@ -50,8 +42,6 @@ const Calendar: React.FC<Props> = ({
               status={job.status}
               company={job.company}
               title={job.title}
-              setDisplayDetails={setDisplayDetails}
-              setSelectedJob={setSelectedJob}
             />
           ))}
         </FlipMove>

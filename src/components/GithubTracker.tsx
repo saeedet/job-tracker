@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Job } from "../types/JobTypes";
+import { useContextProvider } from "../context/StateProvider";
 import { giveMeGithubBox, giveMeMonthsBar } from "../utils/utils";
-import "./styles/Calendar.css";
+import "../styles/Calendar.css";
 
 interface Props {
-  jobs: [] | Job[];
   cutJobs: (date: any) => void;
 }
 
-const GithubTracker: React.FC<Props> = ({ jobs, cutJobs }) => {
+const GithubTracker: React.FC<Props> = ({ cutJobs }) => {
+  const [{ jobs }] = useContextProvider();
   const [boxes, setBoxes] = useState<any[]>([]);
   const [boxMonths, setBoxMonths] = useState<[] | string[]>([]);
 

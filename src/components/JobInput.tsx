@@ -1,16 +1,13 @@
 import React, { useRef, useState } from "react";
-import "./styles/JobInput.css";
+import "../styles/JobInput.css";
 import { v4 as uuidv4 } from "uuid";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { Job } from "../types/JobTypes";
+import { useContextProvider } from "../context/StateProvider";
 
-interface Props {
-  setDisplayInput: React.Dispatch<React.SetStateAction<boolean>>;
-  setJobs: React.Dispatch<React.SetStateAction<Job[] | []>>;
-}
-
-const JobInput: React.FC<Props> = ({ setDisplayInput, setJobs }) => {
+const JobInput: React.FC = () => {
+  const [{ jobs }, dispatch] = useContextProvider();
   const companyRef = useRef<HTMLInputElement>(null);
   const jobTitleRef = useRef<HTMLInputElement>(null);
   const [jobText, setJobText] = useState<string>("");
@@ -26,8 +23,15 @@ const JobInput: React.FC<Props> = ({ setDisplayInput, setJobs }) => {
       status: "applied",
       date: new Date().toString(),
     };
-    setJobs((prev: Job[]): Job[] => [...prev, newJobObject]);
-    setDisplayInput(false);
+
+    dispatch({
+      type: "setJobs",
+      payload: [...jobs, newJobObject],
+    });
+    dispatch({
+      type: "displayInput",
+      payload: false,
+    });
   };
   return (
     <form className="jobInput" onSubmit={submitHandler}>

@@ -1,34 +1,51 @@
 import React, { useEffect, useState } from "react";
 import { useContextProvider } from "../context/StateProvider";
-import { Job } from "../types/JobTypes";
 import { giveMeSortedJobs } from "../utils/utils";
-import "./styles/Header.css";
+import "../styles/Header.css";
 
-interface Props {
-  setDisplayInput: React.Dispatch<React.SetStateAction<boolean>>;
-  setJobs: React.Dispatch<React.SetStateAction<[] | Job[]>>;
-  jobs: [] | Job[];
-}
-
-const Header: React.FC<Props> = ({ setDisplayInput, setJobs, jobs }) => {
-  const [{ display }, dispatch] = useContextProvider();
+const Header: React.FC = () => {
+  const [{ display, jobs }, dispatch] = useContextProvider();
   const [sort, setSort] = useState<string>("date");
   const [moved, setMoved] = useState<number>(0);
   const [rejected, setRejected] = useState<number>(0);
+
+  //function to handle sort option for jobs
   const sortHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSort(event.target.value);
-    setJobs(giveMeSortedJobs(event.target.value, jobs));
+    dispatch({
+      type: "setJobs",
+      payload: giveMeSortedJobs(event.target.value, jobs),
+    });
   };
+
+  // useEffect to handle the stats
   useEffect(() => {
     setMoved(jobs.filter((job: any) => job.status === "interview").length);
     setRejected(jobs.filter((job: any) => job.status === "rejected").length);
   }, [jobs]);
 
+  // tab onclick function to change the display
   const handleTabChange = (tab: string) => {
     dispatch({
       type: "display",
       payload: tab,
     });
+  };
+
+  // function to handle clear button
+  const clearHandler = () => {
+    const userApprove = prompt(
+      "Are you sure you want to delete all jobs?(y/n)"
+    );
+    if (
+      userApprove.toUpperCase() === "Y" ||
+      userApprove.toUpperCase() === "YES"
+    ) {
+      dispatch({
+        type: "setJobs",
+        payload: [],
+      });
+    }
   };
 
   return (
@@ -75,7 +92,16 @@ const Header: React.FC<Props> = ({ setDisplayInput, setJobs, jobs }) => {
       </div>
       {/* middle section */}
       <div className="header__middle">
-        <button onClick={() => setDisplayInput(true)}>Add a job</button>
+        <button
+          onClick={() =>
+            dispatch({
+              type: "displayInput",
+              payload: true,
+            })
+          }
+        >
+          Add a job
+        </button>
 
         <p className="app_total">
           <span>{jobs.length}</span>&nbsp;Total
@@ -101,7 +127,7 @@ const Header: React.FC<Props> = ({ setDisplayInput, setJobs, jobs }) => {
             Commits
           </div>
         </div>
-        <button onClick={() => setJobs([])}>Clear All</button>
+        <button onClick={clearHandler}>Clear All</button>
       </div>
     </header>
   );

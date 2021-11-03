@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import "./App.css";
+import { useEffect } from "react";
+import "./styles/App.css";
 import Calendar from "./components/Calendar";
 import Header from "./components/Header";
 import JobDetails from "./components/JobDetails";
@@ -11,21 +11,24 @@ import { Job } from "./types/JobTypes";
 import { giveMeDumyData } from "./utils/utils";
 
 function App() {
-  const [displayInput, setDisplayInput] = useState<boolean>(false);
-  const [displayDetails, setDisplayDetails] = useState<boolean>(false);
-  const [selectedJob, setSelectedJob] = useState<string>("");
-  const [{ display }, dispatch] = useContextProvider();
-  const [jobs, setJobs] = useState<[] | Job[]>([]);
+  const [{ display, displayInput, displayDetails, jobs }, dispatch] =
+    useContextProvider();
 
   // Setting the initital state
   useEffect(() => {
     let myJobs: null | Job[] = JSON.parse(localStorage.getItem("jobsObject"));
     if (!myJobs || myJobs.length === 0) {
-      setJobs(giveMeDumyData());
+      dispatch({
+        type: "setJobs",
+        payload: giveMeDumyData(),
+      });
     } else {
-      setJobs(myJobs);
+      dispatch({
+        type: "setJobs",
+        payload: myJobs,
+      });
     }
-  }, []);
+  }, [dispatch]);
 
   // Printing the changes to local storage
   useEffect(() => {
@@ -34,31 +37,14 @@ function App() {
 
   return (
     <div className="app">
-      <Header jobs={jobs} setDisplayInput={setDisplayInput} setJobs={setJobs} />
-      <Modal displayInput={displayInput} setDisplayInput={setDisplayInput}>
-        <JobInput setDisplayInput={setDisplayInput} setJobs={setJobs} />
+      <Header />
+      <Modal show={displayInput}>
+        <JobInput />
       </Modal>
-      <Modal displayInput={displayDetails} setDisplayInput={setDisplayDetails}>
-        <JobDetails
-          setJobs={setJobs}
-          selectedJob={selectedJob}
-          jobs={jobs}
-          setDisplayDetails={setDisplayDetails}
-        />
+      <Modal show={displayDetails}>
+        <JobDetails />
       </Modal>
-      {display === "calendar" ? (
-        <Calendar
-          jobs={jobs}
-          setDisplayDetails={setDisplayDetails}
-          setSelectedJob={setSelectedJob}
-        />
-      ) : (
-        <Jobs
-          jobs={jobs}
-          setDisplayDetails={setDisplayDetails}
-          setSelectedJob={setSelectedJob}
-        />
-      )}
+      {display === "calendar" ? <Calendar /> : <Jobs />}
     </div>
   );
 }

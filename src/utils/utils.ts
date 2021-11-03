@@ -1,5 +1,6 @@
 import { Job } from "../types/JobTypes";
 
+// function to generate dummy jobs data
 export const giveMeDumyData = (): Job[] => {
   const currentJobs = [];
   const yearArray = giveMeYearArray();
@@ -19,12 +20,14 @@ export const giveMeDumyData = (): Job[] => {
   return currentJobs;
 };
 
+// function to delete a specific job from an array of jobs given the job id
 export const deleteJob = (id: string, jobs: Job[]): Job[] => {
   const currentJobs = JSON.parse(JSON.stringify(jobs));
   const newJobs = currentJobs.filter((job: Job) => job.id !== id);
   return newJobs;
 };
 
+// function to handle status change and returning a new array with the changed value
 export const changeStatus = (
   status: string,
   id: string,
@@ -41,6 +44,7 @@ export const changeStatus = (
   return currentJobs;
 };
 
+// function to handle description change -> returning a new array without mutating the state
 export const changeText = (text: string, id: string, jobs: Job[]): Job[] => {
   const currentJobs = JSON.parse(JSON.stringify(jobs));
   for (let i = 0; i < currentJobs.length; i++) {
@@ -51,6 +55,7 @@ export const changeText = (text: string, id: string, jobs: Job[]): Job[] => {
   return currentJobs;
 };
 
+// function to handle sort feature
 export const giveMeSortedJobs = (sortType: string, jobs: Job[]): Job[] => {
   if (sortType === "date") {
     const currentJobs = JSON.parse(JSON.stringify(jobs));

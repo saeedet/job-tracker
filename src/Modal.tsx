@@ -1,27 +1,35 @@
 import React from "react";
 import { createPortal } from "react-dom";
+import { useContextProvider } from "./context/StateProvider";
 
 interface Props {
-  displayInput: boolean;
-  setDisplayInput: React.Dispatch<React.SetStateAction<boolean>>;
+  children: React.ReactNode;
+  show: boolean;
 }
 
-const Modal: React.FC<Props> = ({
-  children,
-  displayInput,
-  setDisplayInput,
-}) => {
-  if (!displayInput) {
+const Modal: React.FC<Props> = ({ children, show }) => {
+  const [{ _ }, dispatch] = useContextProvider();
+
+  if (!show) {
     return null;
   }
+
+  //modal backdrop click handler for closing the modal
+  const closeModal = () => {
+    dispatch({
+      type: "displayInput",
+      payload: false,
+    });
+    dispatch({
+      type: "displayDetails",
+      payload: false,
+    });
+  };
 
   const myElement: HTMLElement = document.getElementById("portal");
   return createPortal(
     <>
-      <div
-        className="modal__backdrop"
-        onClick={() => setDisplayInput(false)}
-      ></div>
+      <div className="modal__backdrop" onClick={closeModal}></div>
       <div>{children}</div>
     </>,
     myElement

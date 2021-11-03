@@ -1,32 +1,44 @@
 import React, { useState } from "react";
-import "./styles/JobDetails.css";
+import "../styles/JobDetails.css";
 import { Job } from "../types/JobTypes";
 import parse from "html-react-parser";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { changeStatus, changeText, deleteJob } from "../utils/utils";
 import fromnow from "fromnow";
+import { useContextProvider } from "../context/StateProvider";
 
-interface Props {
-  setJobs: React.Dispatch<React.SetStateAction<Job[] | []>>;
-  selectedJob: string;
-  jobs: [] | Job[];
-  setDisplayDetails: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const JobDetails: React.FC<Props> = ({
-  setJobs,
-  selectedJob,
-  jobs,
-  setDisplayDetails,
-}) => {
+const JobDetails: React.FC = () => {
+  const [{ jobs, selectedJob }, dispatch] = useContextProvider();
   const [edit, setEdit] = useState<boolean>(false);
   const [textToChange, setTextToChange] = useState<string>("");
 
   const thisJob: Job[] = jobs.filter((job: Job) => job.id === selectedJob);
 
   const statusHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setJobs(changeStatus(event.target.value, thisJob[0].id, jobs));
+    dispatch({
+      type: "setJobs",
+      payload: changeStatus(event.target.value, thisJob[0].id, jobs),
+    });
+  };
+
+  const deleteHandler = () => {
+    dispatch({
+      type: "displayDetails",
+      payload: false,
+    });
+    dispatch({
+      type: "setJobs",
+      payload: deleteJob(thisJob[0].id, jobs),
+    });
+  };
+
+  const changeHandler = () => {
+    setEdit(false);
+    dispatch({
+      type: "setJobs",
+      payload: changeText(textToChange, thisJob[0].id, jobs),
+    });
   };
 
   return (
@@ -81,14 +93,7 @@ const JobDetails: React.FC<Props> = ({
           </span>
         </div>
         <div className="jobDetails__headerButtons">
-          <button
-            onClick={() => {
-              setJobs(deleteJob(thisJob[0].id, jobs));
-              setDisplayDetails(false);
-            }}
-          >
-            Delete
-          </button>
+          <button onClick={deleteHandler}>Delete</button>
           <button
             onClick={() => {
               setEdit(!edit);
@@ -108,13 +113,7 @@ const JobDetails: React.FC<Props> = ({
               setTextToChange(data);
             }}
           />
-          <button
-            className="saveChange"
-            onClick={() => {
-              setJobs(changeText(textToChange, thisJob[0].id, jobs));
-              setEdit(false);
-            }}
-          >
+          <button className="saveChange" onClick={changeHandler}>
             Save Changes
           </button>
         </>
