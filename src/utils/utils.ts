@@ -92,6 +92,7 @@ export const giveMeSortedJobs = (sortType: string, jobs: Job[]): Job[] => {
   }
 };
 
+// returns an array of days of a year -> each day is an array itself
 export const giveMeYearArray = (num = 1) => {
   const months: string[] = [
     "Jan",
@@ -147,9 +148,9 @@ export const giveMeYearArray = (num = 1) => {
   }
 
   // function to add extra days at the end of the calendar to make
-  // it visually more pleasant
+  // it visually more pleasant on the github commit box
   const daysToFixTheEnd = week.indexOf(calendar[calendar.length - 1][0]);
-  // console.log(calendar[calendar.length - 1]);
+
   if (daysToFixTheEnd !== 0) {
     let weekFlag2 = daysToFixTheEnd;
     let monthFlag2 = months.indexOf(calendar[calendar.length - 1][1]);
@@ -177,11 +178,12 @@ export const giveMeYearArray = (num = 1) => {
       calendar.push([week[weekFlag2], months[monthFlag2], date2, yearFlag2]);
     }
   }
-  console.log(calendar);
+
   return calendar;
 };
 
-// function to make an array of the github box with all days and weeks stacked properly
+// function to make an array of the github box with all days
+// and weeks stacked properly
 export const giveMeGithubBox = (jobs: Job[]) => {
   const weeklyYear = [];
   let yearArray = giveMeYearArray();
@@ -218,11 +220,12 @@ export const giveMeGithubBox = (jobs: Job[]) => {
       dayFlag--;
     }
   }
-  // console.log(weeklyYear);
+
   const finalArray = [];
   for (let i = 0; i < weeklyYear.length; i++) {
     finalArray.push(weeklyYear[i].reverse());
   }
+
   return finalArray.reverse();
 };
 
@@ -240,3 +243,33 @@ export const months: string[] = [
   "Nov",
   "Dec",
 ];
+
+// function to return a sorted months bar which be places on top of the github commit boxes and corresponds
+// with the first day of each months
+
+export const giveMeMonthsBar = (boxes: any[]) => {
+  const firstDaysOfTheWeek = [];
+  for (let i = 0; i < boxes.length; i++) {
+    firstDaysOfTheWeek.push(boxes[i][0][1]);
+  }
+  firstDaysOfTheWeek.reverse();
+
+  const monthBar = [];
+  for (let i = 0; i < boxes.length; i++) {
+    if (
+      i !== boxes.length - 1 &&
+      firstDaysOfTheWeek[i] !== firstDaysOfTheWeek[i + 1]
+    ) {
+      monthBar.push(firstDaysOfTheWeek[i]);
+    } else if (i === boxes.length - 1) {
+      if (monthBar[0] === firstDaysOfTheWeek[i]) {
+        monthBar.push("");
+      } else {
+        monthBar.push(firstDaysOfTheWeek[i]);
+      }
+    } else {
+      monthBar.push("");
+    }
+  }
+  return monthBar.reverse();
+};

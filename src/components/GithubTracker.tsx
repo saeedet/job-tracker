@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Job } from "../types/JobTypes";
-import { giveMeGithubBox, months } from "../utils/utils";
+import { giveMeGithubBox, giveMeMonthsBar } from "../utils/utils";
 import "./styles/Calendar.css";
 
 interface Props {
@@ -13,21 +13,9 @@ const GithubTracker: React.FC<Props> = ({ jobs }) => {
 
   useEffect(() => {
     const calendar = giveMeGithubBox(jobs);
-    console.log(calendar);
     setBoxes(calendar);
-    const sortedMonths = [];
-    const today = new Date().toString().split(" ").slice(1, 3);
 
-    let startPoint = months.indexOf(today[0]);
-    for (let i = 0; i < 12; i++) {
-      sortedMonths.push(months[startPoint]);
-      if (startPoint === 0) {
-        startPoint = 11;
-      } else {
-        startPoint--;
-      }
-    }
-    setBoxMonths(sortedMonths.reverse());
+    setBoxMonths(giveMeMonthsBar(calendar));
   }, [jobs]);
 
   return (
@@ -40,7 +28,7 @@ const GithubTracker: React.FC<Props> = ({ jobs }) => {
       >
         <div className="calendar__months">
           {boxMonths?.map((month) => (
-            <div>{month}</div>
+            <div className="">{month}</div>
           ))}
         </div>
         <div className="calendar__week">
