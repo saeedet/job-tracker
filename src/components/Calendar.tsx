@@ -17,7 +17,9 @@ const Calendar: React.FC<Props> = ({
   setDisplayDetails,
 }) => {
   const [selectedJobs, setSelectedJobs] = useState([]);
-  const cutJobs = (date: any) => {
+
+  // function to cut the job array for selected day
+  const cutJobs = (date: any[]) => {
     const jobsArray = [];
     for (let i = 0; i < jobs.length; i++) {
       const appliedJob = jobs[i].date.split(" ").slice(0, 4);

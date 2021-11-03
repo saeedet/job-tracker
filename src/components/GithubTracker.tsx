@@ -9,13 +9,13 @@ interface Props {
 }
 
 const GithubTracker: React.FC<Props> = ({ jobs, cutJobs }) => {
-  const [boxes, setBoxes] = useState<any>([]);
-  const [boxMonths, setBoxMonths] = useState<any>([]);
+  const [boxes, setBoxes] = useState<any[]>([]);
+  const [boxMonths, setBoxMonths] = useState<[] | string[]>([]);
 
+  // update the boxes whenever a new job added or deleted
   useEffect(() => {
     const calendar = giveMeGithubBox(jobs);
     setBoxes(calendar);
-
     setBoxMonths(giveMeMonthsBar(calendar));
   }, [jobs]);
 
@@ -28,8 +28,8 @@ const GithubTracker: React.FC<Props> = ({ jobs, cutJobs }) => {
         }}
       >
         <div className="calendar__months">
-          {boxMonths?.map((month) => (
-            <div className="">{month}</div>
+          {boxMonths?.map((month, index) => (
+            <div key={`key-${index}`}>{month}</div>
           ))}
         </div>
         <div className="calendar__week">
@@ -48,7 +48,7 @@ const GithubTracker: React.FC<Props> = ({ jobs, cutJobs }) => {
           <div></div>
         </div>
         {boxes?.map((week: any[], index: number) => (
-          <div className="calendar__week">
+          <div key={`box-key-${index}`} className="calendar__week">
             {week.map((day: number[] | string[]) => (
               <div
                 onClick={() => cutJobs(day)}
