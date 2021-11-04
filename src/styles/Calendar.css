@@ -103,6 +103,7 @@
 }
 .calendar__jobs {
   justify-content: center;
+  margin-top: 20px;
 }
 .calendar__day__info > div {
   font-size: small;
