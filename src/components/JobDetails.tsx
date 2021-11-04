@@ -87,8 +87,7 @@ const JobDetails: React.FC = () => {
           <h1>{thisJob[0].company}</h1>
           <h4>{thisJob[0].title}</h4>
           <span>
-            {/* applied on {new Date(thisJob[0].date).toLocaleDateString()} */}
-            applied on
+            applied on&nbsp;
             {fromnow(thisJob[0].date, { and: true, suffix: true, max: 2 })}
           </span>
         </div>
