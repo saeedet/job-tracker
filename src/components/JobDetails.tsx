@@ -15,6 +15,7 @@ const JobDetails: React.FC = () => {
 
   const thisJob: Job[] = jobs.filter((job: Job) => job.id === selectedJob);
 
+  // Function to change the status of a Job
   const statusHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({
       type: "setJobs",
@@ -22,6 +23,7 @@ const JobDetails: React.FC = () => {
     });
   };
 
+  // Function to delete a Job
   const deleteHandler = () => {
     dispatch({
       type: "displayDetails",
@@ -33,6 +35,7 @@ const JobDetails: React.FC = () => {
     });
   };
 
+  // Function to change the details of a single Job
   const changeHandler = () => {
     setEdit(false);
     dispatch({

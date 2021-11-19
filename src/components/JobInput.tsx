@@ -11,6 +11,8 @@ const JobInput: React.FC = () => {
   const companyRef = useRef<HTMLInputElement>(null);
   const jobTitleRef = useRef<HTMLInputElement>(null);
   const [jobText, setJobText] = useState<string>("");
+
+  // submiting the new Job to the Context API
   const submitHandler = (
     event: React.FormEvent<HTMLFormElement | HTMLButtonElement>
   ) => {

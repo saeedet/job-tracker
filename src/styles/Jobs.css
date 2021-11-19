@@ -1,7 +1,5 @@
 .jobs {
   display: flex;
   flex-wrap: wrap;
-  /* padding: 7px; */
-  /* margin: 7px; */
   width: 100vw;
 }

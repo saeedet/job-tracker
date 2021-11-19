@@ -27,11 +27,13 @@ const GithubTracker: React.FC<Props> = ({ cutJobs }) => {
           gridTemplateColumns: `repeat(${boxes.length + 1}, 11px)`,
         }}
       >
+        {/* months bar on TOP */}
         <div className="calendar__months">
           {boxMonths?.map((month, index) => (
             <div key={`key-${index}`}>{month}</div>
           ))}
         </div>
+        {/* week bar on the left */}
         <div className="calendar__week">
           <div></div>
           <div className="dayName">
@@ -47,6 +49,7 @@ const GithubTracker: React.FC<Props> = ({ cutJobs }) => {
           </div>
           <div></div>
         </div>
+        {/* boxes */}
         {boxes?.map((week: any[], index: number) => (
           <div key={`box-key-${index}`} className="calendar__week">
             {week.map((day: number[] | string[]) => (
