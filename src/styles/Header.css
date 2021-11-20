@@ -129,13 +129,15 @@
 }
 .calendar__tab__selected {
   color: white;
-  background-image: radial-gradient(transparent, transparent, white);
+  background-image: none;
+  /* background-image: radial-gradient(transparent, transparent, white); */
   /* border: 1px solid white; */
 }
 
 .jobs__tab__selected {
   color: white;
-  background-image: radial-gradient(transparent, transparent, white);
+  background-image: none;
+  /* background-image: radial-gradient(transparent, transparent, white); */
   /* border: 1px solid white; */
 }
 .header__middle {
