@@ -6,6 +6,7 @@
   justify-content: space-between;
   align-items: center;
   position: relative;
+  background-color: gainsboro;
 }
 .header__left {
   flex: 1;
@@ -16,13 +17,16 @@
 .header__leftInputs {
   display: flex;
   flex-direction: column;
-  margin-left: 40px;
+  margin-left: 20px;
+  border-radius: 5px;
+  border: 1px solid white;
+  padding: 10px;
 }
 .header__leftInputs > div {
   display: flex;
   align-items: center;
   width: 70px;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 .header__leftInputs input,
 .header__leftInputs label {
@@ -49,6 +53,11 @@
 .header__leftInfoStats {
   display: flex;
   flex-direction: column;
+  border: 1px solid white;
+  border-radius: 5px;
+  width: 120px;
+  /* height: 55px; */
+  padding: 5px 0;
 }
 .app_rejected {
   color: rgba(131, 16, 16, 0.8);
@@ -70,7 +79,8 @@
 .app_waiting :nth-child(1) {
   width: 30px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  margin-right: 10px;
 }
 .app_moved {
   color: rgba(74, 189, 74, 0.7);
@@ -92,53 +102,76 @@
   padding: 2px 10px;
   border-radius: 5px;
   cursor: pointer;
-  width: 80px;
+  font-weight: bold;
+  border: 1px solid white;
+  height: 25px;
+  width: 90px;
   background-color: rgba(255, 0, 0, 0.137);
 }
+
+.header__right > button:hover {
+  color: white;
+  box-shadow: 0 0 2px rgb(80, 74, 74);
+}
+.header__right > button:active {
+  color: rgb(92, 17, 17);
+  transform: scale(0.95);
+  box-shadow: none;
+}
+
 .header__right > div {
   flex: 1;
   display: flex;
   justify-content: center;
 }
 .header__right > div > div {
-  padding: 10px;
-  width: 70px;
-  cursor: pointer;
+  height: 25px;
+  width: 90px;
 }
 .jobs__tab {
+  position: relative;
+  cursor: pointer;
   border-radius: 5px;
   color: gray;
   font-weight: bold;
-  border-right: 1px solid rgba(128, 128, 128, 0.363);
   display: flex;
+  border: 1px solid white;
   justify-content: center;
   background-image: radial-gradient(transparent, white);
 }
 .calendar__tab {
+  position: relative;
+  cursor: pointer;
   border-radius: 5px;
   color: gray;
   font-weight: bold;
-  border-left: 1px solid white;
+  border: 1px solid white;
   background-image: radial-gradient(transparent, white);
   display: flex;
   justify-content: center;
 }
+
+.connection__line {
+  position: absolute;
+  bottom: -28px;
+  height: 27px;
+  border-left: 4px solid white;
+}
+
 .jobs__tab:hover,
 .calendar__tab:hover {
   color: white;
 }
 .calendar__tab__selected {
+  cursor: default;
   color: white;
   background-image: none;
-  /* background-image: radial-gradient(transparent, transparent, white); */
-  /* border: 1px solid white; */
 }
 
 .jobs__tab__selected {
+  cursor: default;
   color: white;
   background-image: none;
-  /* background-image: radial-gradient(transparent, transparent, white); */
-  /* border: 1px solid white; */
 }
 .header__middle {
   padding: 0 20px;
@@ -149,11 +182,22 @@
   align-items: center;
 }
 .header__middle > button {
-  padding: 2px 10px;
+  background-color: #40c463;
+  border: 1px solid white;
   border-radius: 5px;
+  font-weight: bold;
   cursor: pointer;
-  width: 100px;
-  height: max-content;
+  height: 25px;
+  width: 90px;
+}
+.header__middle > button:hover {
+  color: white;
+  box-shadow: 0 0 2px rgb(80, 74, 74);
+}
+.header__middle > button:active {
+  color: rgb(8, 73, 8);
+  transform: scale(0.95);
+  box-shadow: none;
 }
 .app_total {
   color: rgba(0, 0, 0, 0.275);
@@ -188,7 +232,7 @@
     display: none;
   }
   .header__middle > button {
-    width: max-content;
+    width: 80px;
   }
   .header__right > button {
     display: none;
@@ -201,6 +245,7 @@
   }
   .jobs__tab {
     width: max-content;
+    margin-bottom: 2px;
   }
   .header__right > div {
     flex: 1;
@@ -210,13 +255,10 @@
     flex-direction: column;
   }
   .header__right > div > div {
-    padding: 5px;
-    width: 70px;
-    cursor: pointer;
+    width: 80px;
   }
-  .jobs__tab {
-    border: none;
-    margin-bottom: 2px;
+  .connection__line {
+    border: transparent;
   }
 }
 @media (max-width: 500px) {

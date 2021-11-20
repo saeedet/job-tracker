@@ -48,7 +48,7 @@ const Header: React.FC = () => {
       <div className="header__left">
         <div className="header__leftInputs">
           <div>
-            <label htmlFor="date">date</label>
+            <label htmlFor="date">Date</label>
             <input
               onChange={sortHandler}
               type="radio"
@@ -59,7 +59,7 @@ const Header: React.FC = () => {
             />
           </div>
           <div>
-            <label htmlFor="status">status</label>
+            <label htmlFor="status">Status</label>
             <input
               onChange={sortHandler}
               type="radio"
@@ -110,6 +110,10 @@ const Header: React.FC = () => {
             }`}
             onClick={() => handleTabChange("jobs")}
           >
+            <div
+              className="connection__line"
+              style={{ display: display === "jobs" ? "flex" : "none" }}
+            />
             Jobs
           </div>
           <div
@@ -118,6 +122,10 @@ const Header: React.FC = () => {
             }`}
             onClick={() => handleTabChange("calendar")}
           >
+            <div
+              className="connection__line"
+              style={{ display: display === "calendar" ? "flex" : "none" }}
+            />
             Commits
           </div>
         </div>
