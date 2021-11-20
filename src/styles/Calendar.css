@@ -14,6 +14,7 @@
 }
 
 .calendar__box {
+  position: relative;
   margin: 40px;
   padding: 40px 20px 40px 30px;
   border: 2px solid rgba(128, 128, 128, 0.342);
@@ -22,10 +23,10 @@
   height: max-content;
   max-width: 870px;
   display: flex;
-  /* flex-direction: column; */
   justify-content: flex-end;
   overflow-x: hidden;
 }
+
 .calendar__months {
   position: absolute;
   top: -20px;
@@ -42,7 +43,6 @@
 }
 .calendar__months > div {
   margin-bottom: -10px;
-  /* width: 11px; */
   display: flex;
   justify-content: center;
 }
@@ -58,6 +58,40 @@
   grid-template-rows: repeat(7, 11px);
   grid-gap: 4px 4px;
   height: max-content;
+}
+.calendar__colorDescription {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 14px;
+}
+
+.linkHolder {
+  position: absolute;
+  bottom: 14px;
+  left: 44px;
+  cursor: pointer;
+}
+.linkHolder:hover > div {
+  text-decoration: underline;
+}
+
+.colorDescription__text {
+  font-size: 12px;
+  color: rgb(87, 96, 106);
+}
+.colorDescription__text > div {
+  margin-bottom: -3px;
+}
+.colorDescription__box {
+  border: 1px solid rgba(27, 31, 35, 0.06);
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+.colorDescription__box + .colorDescription__box {
+  margin-left: 3px;
 }
 .dayName {
   font-size: xx-small;
@@ -115,5 +149,8 @@
 @media (max-width: 700px) {
   .calendar__box {
     width: 80vw;
+  }
+  .linkHolder {
+    display: none;
   }
 }

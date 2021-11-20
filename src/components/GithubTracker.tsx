@@ -8,7 +8,7 @@ interface Props {
 }
 
 const GithubTracker: React.FC<Props> = ({ cutJobs }) => {
-  const [{ jobs }] = useContextProvider();
+  const [{ jobs }, dispatch] = useContextProvider();
   const [boxes, setBoxes] = useState<any[]>([]);
   const [boxMonths, setBoxMonths] = useState<[] | string[]>([]);
 
@@ -29,7 +29,7 @@ const GithubTracker: React.FC<Props> = ({ cutJobs }) => {
       >
         {/* months bar on TOP */}
         <div className="calendar__months">
-          {boxMonths?.map((month, index) => (
+          {boxMonths?.map((month: string, index: number) => (
             <div key={`key-${index}`}>{month}</div>
           ))}
         </div>
@@ -92,6 +92,51 @@ const GithubTracker: React.FC<Props> = ({ cutJobs }) => {
             ))}
           </div>
         ))}
+      </div>
+      {/* Colors description on the bottom right corner of the box */}
+      <div className="calendar__colorDescription">
+        <div className="colorDescription__text" style={{ marginRight: "6px" }}>
+          <div>Less</div>
+        </div>
+        <div
+          className="colorDescription__box"
+          style={{ backgroundColor: "#ebedf0" }}
+        ></div>
+        <div
+          className="colorDescription__box"
+          style={{ backgroundColor: "var(--color-day-L1-bg)" }}
+        ></div>
+        <div
+          className="colorDescription__box"
+          style={{ backgroundColor: "var(--color-day-L2-bg)" }}
+        ></div>
+        <div
+          className="colorDescription__box"
+          style={{ backgroundColor: "var(--color-day-L3-bg)" }}
+        ></div>
+        <div
+          className="colorDescription__box"
+          style={{ backgroundColor: "var(--color-day-L4-bg)" }}
+        ></div>
+        <div
+          className="colorDescription__box"
+          style={{ backgroundColor: "var(--color-day-L5-bg)" }}
+        ></div>
+        <div className="colorDescription__text" style={{ marginLeft: "6px" }}>
+          <div>More</div>
+        </div>
+      </div>
+      {/* link to all the jobs on the bottom left corner of the box */}
+      <div
+        className="linkHolder colorDescription__text"
+        onClick={() =>
+          dispatch({
+            type: "display",
+            payload: "jobs",
+          })
+        }
+      >
+        <div>See all the jobs</div>
       </div>
     </div>
   );
