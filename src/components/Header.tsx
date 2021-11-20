@@ -34,13 +34,7 @@ const Header: React.FC = () => {
 
   // function to handle clear button
   const clearHandler = () => {
-    const userApprove = prompt(
-      "Are you sure you want to delete all jobs?(y/n)"
-    );
-    if (
-      userApprove.toUpperCase() === "Y" ||
-      userApprove.toUpperCase() === "YES"
-    ) {
+    if (window.confirm("Are you sure you want to delete all jobs?")) {
       dispatch({
         type: "setJobs",
         payload: [],
