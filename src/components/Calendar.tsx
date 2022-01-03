@@ -8,7 +8,7 @@ import { useContextProvider } from "../context/StateProvider";
 
 const Calendar: React.FC = () => {
   const [{ jobs }] = useContextProvider();
-  const [selectedJobs, setSelectedJobs] = useState<any[]>([]);
+  const [selectedJobs, setSelectedJobs] = useState<Job[]>([]);
 
   // function to cut the job array for selected day
   const cutJobs = (date: any[]) => {

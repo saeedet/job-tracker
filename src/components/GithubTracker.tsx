@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useContextProvider } from "../context/StateProvider";
 import { giveMeGithubBox, giveMeMonthsBar } from "../utils/utils";
 import "../styles/Calendar.css";
+import { setDisplay } from "../context/reducer";
 
 interface Props {
   cutJobs: (date: any) => void;
@@ -129,14 +130,7 @@ const GithubTracker: React.FC<Props> = ({ cutJobs }) => {
       {/* link to all the jobs on the bottom left corner of the box */}
       <div
         className="linkHolder colorDescription__text"
-        onClick={() =>
-          dispatch({
-            type: "display",
-            payload: {
-              display: "jobs",
-            },
-          })
-        }
+        onClick={() => dispatch(setDisplay("jobs"))}
       >
         <div>See all the jobs</div>
       </div>

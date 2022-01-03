@@ -9,6 +9,7 @@ import { useContextProvider } from "./context/StateProvider";
 import Modal from "./Modal";
 import { Job } from "./types/JobTypes";
 import { giveMeDumyData } from "./utils/utils";
+import { setJobs } from "./context/reducer";
 
 function App() {
   const [{ display, displayInput, displayDetails, jobs }, dispatch] =
@@ -18,19 +19,9 @@ function App() {
   useEffect(() => {
     let myJobs: null | Job[] = JSON.parse(localStorage.getItem("jobsObject"));
     if (!myJobs || myJobs.length === 0) {
-      dispatch({
-        type: "setJobs",
-        payload: {
-          jobs: giveMeDumyData(),
-        },
-      });
+      dispatch(setJobs(giveMeDumyData()));
     } else {
-      dispatch({
-        type: "setJobs",
-        payload: {
-          jobs: myJobs,
-        },
-      });
+      dispatch(setJobs(myJobs));
     }
   }, [dispatch]);
 

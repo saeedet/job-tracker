@@ -1,4 +1,5 @@
 import React, { forwardRef } from "react";
+import { displayDetails, selectJob } from "../context/reducer";
 import { useContextProvider } from "../context/StateProvider";
 import "../styles/Card.css";
 
@@ -15,18 +16,8 @@ const Card: React.FC<Props> = forwardRef(
     const [{}, dispatch] = useContextProvider();
 
     const clickHandler = () => {
-      dispatch({
-        type: "displayDetails",
-        payload: {
-          displayDetails: true,
-        },
-      });
-      dispatch({
-        type: "selectJob",
-        payload: {
-          selectedJob: id,
-        },
-      });
+      dispatch(displayDetails(true));
+      dispatch(selectJob(id));
     };
 
     return (

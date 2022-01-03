@@ -1,5 +1,6 @@
 import React from "react";
 import { createPortal } from "react-dom";
+import { displayDetails, displayInput } from "./context/reducer";
 import { useContextProvider } from "./context/StateProvider";
 
 interface Props {
@@ -17,18 +18,8 @@ const Modal: React.FC<Props> = ({ children, show }) => {
 
   //modal backdrop click handler for closing the modal
   const closeModal = () => {
-    dispatch({
-      type: "displayInput",
-      payload: {
-        displayInput: false,
-      },
-    });
-    dispatch({
-      type: "displayDetails",
-      payload: {
-        displayDetails: false,
-      },
-    });
+    dispatch(displayInput(false));
+    dispatch(displayDetails(false));
   };
 
   const myElement: HTMLElement = document.getElementById("portal");

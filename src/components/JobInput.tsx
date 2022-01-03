@@ -5,6 +5,7 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { Job } from "../types/JobTypes";
 import { useContextProvider } from "../context/StateProvider";
+import { displayInput, setJobs } from "../context/reducer";
 
 const JobInput: React.FC = () => {
   const [{ jobs }, dispatch] = useContextProvider();
@@ -26,18 +27,8 @@ const JobInput: React.FC = () => {
       date: new Date().toString(),
     };
 
-    dispatch({
-      type: "setJobs",
-      payload: {
-        jobs: [...jobs, newJobObject],
-      },
-    });
-    dispatch({
-      type: "displayInput",
-      payload: {
-        displayInput: false,
-      },
-    });
+    dispatch(setJobs([...jobs, newJobObject]));
+    dispatch(displayInput(false));
   };
   return (
     <form className="jobInput" onSubmit={submitHandler}>

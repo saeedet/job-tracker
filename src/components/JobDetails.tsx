@@ -7,49 +7,30 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { changeStatus, changeText, deleteJob } from "../utils/utils";
 import fromnow from "fromnow";
 import { useContextProvider } from "../context/StateProvider";
+import { displayDetails, setJobs } from "../context/reducer";
 
 const JobDetails: React.FC = () => {
-  const [{ jobs, selectedJob }, dispatch] = useContextProvider();
+  const [{ jobs, selectedJobId }, dispatch] = useContextProvider();
   const [edit, setEdit] = useState<boolean>(false);
   const [textToChange, setTextToChange] = useState<string>("");
 
-  const thisJob: Job[] = jobs.filter((job: Job) => job.id === selectedJob);
+  const thisJob: Job[] = jobs.filter((job: Job) => job.id === selectedJobId);
 
   // Function to change the status of a Job
   const statusHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: "setJobs",
-      payload: {
-        jobs: changeStatus(event.target.value, thisJob[0].id, jobs),
-      },
-    });
+    dispatch(setJobs(changeStatus(event.target.value, thisJob[0].id, jobs)));
   };
 
   // Function to delete a Job
   const deleteHandler = () => {
-    dispatch({
-      type: "displayDetails",
-      payload: {
-        displayDetails: false,
-      },
-    });
-    dispatch({
-      type: "setJobs",
-      payload: {
-        jobs: deleteJob(thisJob[0].id, jobs),
-      },
-    });
+    dispatch(displayDetails(false));
+    dispatch(setJobs(deleteJob(thisJob[0].id, jobs)));
   };
 
   // Function to change the details of a single Job
   const changeHandler = () => {
     setEdit(false);
-    dispatch({
-      type: "setJobs",
-      payload: {
-        jobs: changeText(textToChange, thisJob[0].id, jobs),
-      },
-    });
+    dispatch(setJobs(changeText(textToChange, thisJob[0].id, jobs)));
   };
 
   return (

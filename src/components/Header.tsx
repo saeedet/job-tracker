@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useContextProvider } from "../context/StateProvider";
 import { giveMeSortedJobs } from "../utils/utils";
 import "../styles/Header.css";
+import { displayInput, setDisplay, setJobs } from "../context/reducer";
 
 const Header: React.FC = () => {
   const [{ display, jobs }, dispatch] = useContextProvider();
@@ -12,12 +13,7 @@ const Header: React.FC = () => {
   //function to handle sort option for jobs
   const sortHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSort(event.target.value);
-    dispatch({
-      type: "setJobs",
-      payload: {
-        jobs: giveMeSortedJobs(event.target.value, jobs),
-      },
-    });
+    dispatch(setJobs(giveMeSortedJobs(event.target.value, jobs)));
   };
 
   // useEffect to handle the stats
@@ -28,23 +24,13 @@ const Header: React.FC = () => {
 
   // tab onclick function to change the display
   const handleTabChange = (tab: string) => {
-    dispatch({
-      type: "display",
-      payload: {
-        display: tab,
-      },
-    });
+    dispatch(setDisplay(tab));
   };
 
   // function to handle clear button
   const clearHandler = () => {
     if (window.confirm("Are you sure you want to delete all jobs?")) {
-      dispatch({
-        type: "setJobs",
-        payload: {
-          jobs: [],
-        },
-      });
+      dispatch(setJobs([]));
     }
   };
 
@@ -92,18 +78,7 @@ const Header: React.FC = () => {
       </div>
       {/* middle section */}
       <div className="header__middle">
-        <button
-          onClick={() =>
-            dispatch({
-              type: "displayInput",
-              payload: {
-                displayInput: true,
-              },
-            })
-          }
-        >
-          Add a job
-        </button>
+        <button onClick={() => dispatch(displayInput(true))}>Add a job</button>
 
         <p className="app_total">
           <span>{jobs.length}</span>&nbsp;Total
