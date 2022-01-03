@@ -3,21 +3,22 @@ import { useContextProvider } from "../context/StateProvider";
 import { giveMeGithubBox, giveMeMonthsBar } from "../utils/utils";
 import "../styles/Calendar.css";
 import { setDisplay } from "../context/reducer";
+import { Day } from "../types/githubBoxTypes";
 
 interface Props {
-  cutJobs: (date: any) => void;
+  cutJobs: (date: Day) => void;
 }
 
 const GithubTracker: React.FC<Props> = ({ cutJobs }) => {
   const [{ jobs }, dispatch] = useContextProvider();
   const [boxes, setBoxes] = useState<any[]>([]);
-  const [boxMonths, setBoxMonths] = useState<[] | string[]>([]);
+  const [monthsBar, setMonthsBar] = useState<[] | string[]>([]);
 
   // update the boxes whenever a new job added or deleted
   useEffect(() => {
     const calendar = giveMeGithubBox(jobs);
     setBoxes(calendar);
-    setBoxMonths(giveMeMonthsBar(calendar));
+    setMonthsBar(giveMeMonthsBar(calendar));
   }, [jobs]);
 
   return (
@@ -30,7 +31,7 @@ const GithubTracker: React.FC<Props> = ({ cutJobs }) => {
       >
         {/* months bar on TOP */}
         <div className="calendar__months">
-          {boxMonths?.map((month: string, index: number) => (
+          {monthsBar?.map((month: string, index: number) => (
             <div key={`key-${index}`}>{month}</div>
           ))}
         </div>
@@ -51,9 +52,9 @@ const GithubTracker: React.FC<Props> = ({ cutJobs }) => {
           <div></div>
         </div>
         {/* boxes */}
-        {boxes?.map((week: any[], index: number) => (
+        {boxes?.map((week: Day[], index: number) => (
           <div key={`box-key-${index}`} className="calendar__week">
-            {week.map((day: number[] | string[]) => (
+            {week.map((day: Day) => (
               <div
                 onClick={() => cutJobs(day)}
                 key={`${day[0]}-${day[1]}-${day[2]}-${day[3]}`}

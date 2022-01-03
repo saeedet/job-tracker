@@ -5,13 +5,14 @@ import "../styles/Calendar.css";
 import FlipMove from "react-flip-move";
 import Card from "./Card";
 import { useContextProvider } from "../context/StateProvider";
+import { Day } from "../types/githubBoxTypes";
 
 const Calendar: React.FC = () => {
   const [{ jobs }] = useContextProvider();
   const [selectedJobs, setSelectedJobs] = useState<Job[]>([]);
 
   // function to cut the job array for selected day
-  const cutJobs = (date: any[]) => {
+  const cutJobs = (date: Day) => {
     const jobsArray = [];
     for (let i = 0; i < jobs.length; i++) {
       const appliedJob = jobs[i].date.split(" ").slice(0, 4);

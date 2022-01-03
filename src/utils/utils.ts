@@ -1,3 +1,4 @@
+import { Day } from "../types/githubBoxTypes";
 import { Job } from "../types/JobTypes";
 
 // function to generate dummy jobs data
@@ -98,7 +99,8 @@ export const giveMeSortedJobs = (sortType: string, jobs: Job[]): Job[] => {
 };
 
 // returns an array of days of a year -> each day is an array itself
-export const giveMeYearArray = (num = 1) => {
+// e.g. ['Tue', 'Jan', '04', '2022']
+export const giveMeYearArray = (): string[][] => {
   const months: string[] = [
     "Jan",
     "Feb",
@@ -183,15 +185,17 @@ export const giveMeYearArray = (num = 1) => {
       calendar.push([week[weekFlag2], months[monthFlag2], date2, yearFlag2]);
     }
   }
-
+  console.log(calendar);
   return calendar;
 };
 
 // function to make an array of the github box with all days
 // and weeks stacked properly
-export const giveMeGithubBox = (jobs: Job[]) => {
+// e.g. [['Tue', 'Jan', '03', '2021', 0], ....]
+
+export const giveMeGithubBox = (jobs: Job[]): Day[] => {
   const weeklyYear = [];
-  let yearArray = giveMeYearArray();
+  let yearArray: any[][] = giveMeYearArray();
   const weekFlag: string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let week = [];
 
@@ -230,7 +234,7 @@ export const giveMeGithubBox = (jobs: Job[]) => {
   for (let i = 0; i < weeklyYear.length; i++) {
     finalArray.push(weeklyYear[i].reverse());
   }
-
+  console.log(finalArray);
   return finalArray.reverse();
 };
 
@@ -251,7 +255,7 @@ export const months: string[] = [
 
 // function to return a sorted months bar which be places on top of the github commit boxes and corresponds
 // with the first day of each months
-
+// e.g. ['', '', '', '', '', 'Feb', ........ '', 'Dec', '', '', '', 'Jan']
 export const giveMeMonthsBar = (boxes: any[]) => {
   const firstDaysOfTheWeek = [];
   for (let i = 0; i < boxes.length; i++) {
