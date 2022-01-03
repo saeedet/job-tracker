@@ -132,7 +132,9 @@ const GithubTracker: React.FC<Props> = ({ cutJobs }) => {
         onClick={() =>
           dispatch({
             type: "display",
-            payload: "jobs",
+            payload: {
+              display: "jobs",
+            },
           })
         }
       >

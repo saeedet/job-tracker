@@ -20,12 +20,16 @@ function App() {
     if (!myJobs || myJobs.length === 0) {
       dispatch({
         type: "setJobs",
-        payload: giveMeDumyData(),
+        payload: {
+          jobs: giveMeDumyData(),
+        },
       });
     } else {
       dispatch({
         type: "setJobs",
-        payload: myJobs,
+        payload: {
+          jobs: myJobs,
+        },
       });
     }
   }, [dispatch]);

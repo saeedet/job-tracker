@@ -28,11 +28,15 @@ const JobInput: React.FC = () => {
 
     dispatch({
       type: "setJobs",
-      payload: [...jobs, newJobObject],
+      payload: {
+        jobs: [...jobs, newJobObject],
+      },
     });
     dispatch({
       type: "displayInput",
-      payload: false,
+      payload: {
+        displayInput: false,
+      },
     });
   };
   return (

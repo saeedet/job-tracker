@@ -1,8 +1,21 @@
-import { useContext, createContext, useReducer } from "react";
+import { useContext, createContext, useReducer, FC } from "react";
+import { States } from "../types/reducerTypes";
+import { CtxAction } from "../types/reducerTypes";
 
-export const StateProviderContext = createContext<any>("");
+export const StateProviderContext = createContext(
+  {} as [States, React.Dispatch<CtxAction>]
+);
 
-export const StateProvider = ({ initialState, reducer, children }) => (
+interface Props {
+  initialState: States;
+  reducer: (state: States, action: CtxAction) => States;
+}
+
+export const StateProvider: FC<Props> = ({
+  initialState,
+  reducer,
+  children,
+}) => (
   <StateProviderContext.Provider value={useReducer(reducer, initialState)}>
     {children}
   </StateProviderContext.Provider>

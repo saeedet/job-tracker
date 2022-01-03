@@ -1,4 +1,4 @@
-import { States } from "../types/JobTypes";
+import { States, CtxAction } from "../types/reducerTypes";
 
 export const initialState: States = {
   display: "jobs",
@@ -8,32 +8,32 @@ export const initialState: States = {
   displayDetails: false,
 };
 
-export const reducer = (state: States, action: any) => {
+export const reducer = (state: States, action: CtxAction) => {
   switch (action.type) {
     case "display":
       return {
         ...state,
-        display: action.payload,
+        ...action.payload,
       };
     case "setJobs":
       return {
         ...state,
-        jobs: action.payload,
+        ...action.payload,
       };
     case "selectJob":
       return {
         ...state,
-        selectedJob: action.payload,
+        ...action.payload,
       };
     case "displayInput":
       return {
         ...state,
-        displayInput: action.payload,
+        ...action.payload,
       };
     case "displayDetails":
       return {
         ...state,
-        displayDetails: action.payload,
+        ...action.payload,
       };
     default:
       return state;

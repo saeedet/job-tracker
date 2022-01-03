@@ -8,7 +8,8 @@ interface Props {
 }
 
 const Modal: React.FC<Props> = ({ children, show }) => {
-  const [{ _ }, dispatch] = useContextProvider();
+  // eslint-disable-next-line no-empty-pattern
+  const [{}, dispatch] = useContextProvider();
 
   if (!show) {
     return null;
@@ -18,11 +19,15 @@ const Modal: React.FC<Props> = ({ children, show }) => {
   const closeModal = () => {
     dispatch({
       type: "displayInput",
-      payload: false,
+      payload: {
+        displayInput: false,
+      },
     });
     dispatch({
       type: "displayDetails",
-      payload: false,
+      payload: {
+        displayDetails: false,
+      },
     });
   };
 

@@ -14,7 +14,9 @@ const Header: React.FC = () => {
     setSort(event.target.value);
     dispatch({
       type: "setJobs",
-      payload: giveMeSortedJobs(event.target.value, jobs),
+      payload: {
+        jobs: giveMeSortedJobs(event.target.value, jobs),
+      },
     });
   };
 
@@ -28,7 +30,9 @@ const Header: React.FC = () => {
   const handleTabChange = (tab: string) => {
     dispatch({
       type: "display",
-      payload: tab,
+      payload: {
+        display: tab,
+      },
     });
   };
 
@@ -37,7 +41,9 @@ const Header: React.FC = () => {
     if (window.confirm("Are you sure you want to delete all jobs?")) {
       dispatch({
         type: "setJobs",
-        payload: [],
+        payload: {
+          jobs: [],
+        },
       });
     }
   };
@@ -90,7 +96,9 @@ const Header: React.FC = () => {
           onClick={() =>
             dispatch({
               type: "displayInput",
-              payload: true,
+              payload: {
+                displayInput: true,
+              },
             })
           }
         >

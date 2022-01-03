@@ -19,7 +19,9 @@ const JobDetails: React.FC = () => {
   const statusHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({
       type: "setJobs",
-      payload: changeStatus(event.target.value, thisJob[0].id, jobs),
+      payload: {
+        jobs: changeStatus(event.target.value, thisJob[0].id, jobs),
+      },
     });
   };
 
@@ -27,11 +29,15 @@ const JobDetails: React.FC = () => {
   const deleteHandler = () => {
     dispatch({
       type: "displayDetails",
-      payload: false,
+      payload: {
+        displayDetails: false,
+      },
     });
     dispatch({
       type: "setJobs",
-      payload: deleteJob(thisJob[0].id, jobs),
+      payload: {
+        jobs: deleteJob(thisJob[0].id, jobs),
+      },
     });
   };
 
@@ -40,7 +46,9 @@ const JobDetails: React.FC = () => {
     setEdit(false);
     dispatch({
       type: "setJobs",
-      payload: changeText(textToChange, thisJob[0].id, jobs),
+      payload: {
+        jobs: changeText(textToChange, thisJob[0].id, jobs),
+      },
     });
   };
 

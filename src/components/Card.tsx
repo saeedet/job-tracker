@@ -11,16 +11,21 @@ interface Props {
 
 const Card: React.FC<Props> = forwardRef(
   ({ id, company, title, status }, ref: React.ForwardedRef<HTMLDivElement>) => {
-    const [{ _ }, dispatch] = useContextProvider();
+    // eslint-disable-next-line no-empty-pattern
+    const [{}, dispatch] = useContextProvider();
 
     const clickHandler = () => {
       dispatch({
         type: "displayDetails",
-        payload: true,
+        payload: {
+          displayDetails: true,
+        },
       });
       dispatch({
         type: "selectJob",
-        payload: id,
+        payload: {
+          selectedJob: id,
+        },
       });
     };
 
