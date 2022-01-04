@@ -10,24 +10,24 @@ const Header: React.FC = () => {
   const [moved, setMoved] = useState<number>(0);
   const [rejected, setRejected] = useState<number>(0);
 
-  //function to handle sort option for jobs
+  // Function to handle sort option for jobs
   const sortHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSort(event.target.value);
     dispatch(setJobs(giveMeSortedJobs(event.target.value, jobs)));
   };
 
-  // useEffect to handle the stats
+  // UseEffect to handle the stats
   useEffect(() => {
     setMoved(jobs.filter((job: any) => job.status === "interview").length);
     setRejected(jobs.filter((job: any) => job.status === "rejected").length);
   }, [jobs]);
 
-  // tab onclick function to change the display
+  // Tab onclick function to change the display
   const handleTabChange = (tab: string) => {
     dispatch(setDisplay(tab));
   };
 
-  // function to handle clear button
+  // Function to handle clear button
   const clearHandler = () => {
     if (window.confirm("Are you sure you want to delete all jobs?")) {
       dispatch(setJobs([]));
