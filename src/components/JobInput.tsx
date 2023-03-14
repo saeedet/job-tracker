@@ -7,7 +7,7 @@ import { Job } from "../types/JobTypes";
 import { useContextProvider } from "../context/StateProvider";
 import { displayInput, setJobs } from "../context/reducer";
 
-const JobInput: React.FC = () => {
+const JobInput = () => {
   const [{ jobs }, dispatch] = useContextProvider();
   const companyRef = useRef<HTMLInputElement>(null);
   const jobTitleRef = useRef<HTMLInputElement>(null);

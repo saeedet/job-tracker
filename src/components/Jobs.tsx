@@ -5,7 +5,7 @@ import { Job } from "../types/JobTypes";
 import FlipMove from "react-flip-move";
 import { useContextProvider } from "../context/StateProvider";
 
-const Jobs: React.FC = () => {
+const Jobs = () => {
   const [{ jobs }] = useContextProvider();
   const jobsArray = JSON.parse(JSON.stringify(jobs));
   jobsArray.reverse();

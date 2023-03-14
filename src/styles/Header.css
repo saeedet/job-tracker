@@ -137,6 +137,7 @@
   display: flex;
   border: 1px solid white;
   justify-content: center;
+  align-items: center;
   background-image: radial-gradient(transparent, white);
 }
 .calendar__tab {
@@ -149,6 +150,7 @@
   background-image: radial-gradient(transparent, white);
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .connection__line {

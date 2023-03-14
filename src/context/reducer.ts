@@ -1,9 +1,9 @@
 import { Job } from "../types/JobTypes";
-import { States, CtxAction } from "../types/reducerTypes";
+import { States, CtxAction, Display } from "../types/reducerTypes";
 
 // Initial States
 export const initialState: States = {
-  display: "jobs",
+  display: Display.JOBS,
   jobs: [],
   selectedJobId: "",
   displayInput: false,
@@ -18,7 +18,7 @@ const DISPLAY_INPUT = "DISPLAY_INPUT";
 const DISPLAY_DETAILS = "DISPLAY_DETAILS";
 
 // Action functions
-export const setDisplay = (display: string): CtxAction => ({
+export const setDisplay = (display: Display): CtxAction => ({
   type: DISPLAY,
   payload: {
     display,

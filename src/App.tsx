@@ -10,25 +10,27 @@ import Modal from "./Modal";
 import { Job } from "./types/JobTypes";
 import { giveMeDumyData } from "./utils/utils";
 import { setJobs } from "./context/reducer";
+import useLocalStorage from "./hooks/useLocalStorage";
+import { Display } from "./types/reducerTypes";
 
 function App() {
   const [{ display, displayInput, displayDetails, jobs }, dispatch] =
     useContextProvider();
+  const [storedValue, setStoredValue] = useLocalStorage<Job[]>(
+    "jobsObject",
+    giveMeDumyData()
+  );
 
-  // Setting the initital state
+  // Setting the initital state  writing from local storage to context
   useEffect(() => {
-    let myJobs: null | Job[] = JSON.parse(localStorage.getItem("jobsObject"));
-    if (!myJobs || myJobs.length === 0) {
-      dispatch(setJobs(giveMeDumyData()));
-    } else {
-      dispatch(setJobs(myJobs));
-    }
+    dispatch(setJobs(storedValue.length ? storedValue : giveMeDumyData()));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   // Printing the changes to local storage
   useEffect(() => {
-    localStorage.setItem("jobsObject", JSON.stringify(jobs));
-  }, [jobs]);
+    setStoredValue(jobs);
+  }, [jobs, setStoredValue]);
 
   return (
     <div className="app">
@@ -39,7 +41,7 @@ function App() {
       <Modal show={displayDetails}>
         <JobDetails />
       </Modal>
-      {display === "calendar" ? <Calendar /> : <Jobs />}
+      {display === Display.CALENDAR ? <Calendar /> : <Jobs />}
     </div>
   );
 }

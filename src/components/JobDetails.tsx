@@ -9,7 +9,7 @@ import fromnow from "fromnow";
 import { useContextProvider } from "../context/StateProvider";
 import { displayDetails, setJobs } from "../context/reducer";
 
-const JobDetails: React.FC = () => {
+const JobDetails = () => {
   const [{ jobs, selectedJobId }, dispatch] = useContextProvider();
   const [edit, setEdit] = useState<boolean>(false);
   const [textToChange, setTextToChange] = useState<string>("");

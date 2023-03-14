@@ -1,7 +1,7 @@
 import { Job } from "./JobTypes";
 
 export interface States {
-  display: string;
+  display: Display;
   jobs: [] | Job[];
   selectedJobId: string;
   displayInput: boolean;
@@ -14,3 +14,8 @@ export interface CtxAction {
 }
 
 export type CtxPayload = Partial<States>;
+
+export enum Display {
+  JOBS = "JOBS",
+  CALENDAR = "CALENDAR",
+}

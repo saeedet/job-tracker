@@ -1,25 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { useContextProvider } from "../context/StateProvider";
+import { useEffect, useState } from "react";
 import { giveMeGithubBox, giveMeMonthsBar } from "../utils/utils";
 import "../styles/Calendar.css";
-import { setDisplay } from "../context/reducer";
 import { Day } from "../types/githubBoxTypes";
+import { Job } from "../types/JobTypes";
 
-interface Props {
-  cutJobs: (date: Day) => void;
+interface GithubTrackerProps {
+  data: Job[];
+  onDayClick: (date: Day) => void;
+  onSeeAllClick: () => void;
 }
 
-const GithubTracker: React.FC<Props> = ({ cutJobs }) => {
-  const [{ jobs }, dispatch] = useContextProvider();
+const GithubTracker = ({
+  data,
+  onDayClick,
+  onSeeAllClick,
+}: GithubTrackerProps) => {
   const [boxes, setBoxes] = useState<any[]>([]);
   const [monthsBar, setMonthsBar] = useState<[] | string[]>([]);
 
   // update the boxes whenever a new job added or deleted
   useEffect(() => {
-    const calendar = giveMeGithubBox(jobs);
+    const calendar = giveMeGithubBox(data);
     setBoxes(calendar);
     setMonthsBar(giveMeMonthsBar(calendar));
-  }, [jobs]);
+  }, [data]);
 
   return (
     <div className="calendar__box">
@@ -56,7 +60,7 @@ const GithubTracker: React.FC<Props> = ({ cutJobs }) => {
           <div key={`box-key-${index}`} className="calendar__week">
             {week.map((day: Day) => (
               <div
-                onClick={() => cutJobs(day)}
+                onClick={() => onDayClick(day)}
                 key={`${day[0]}-${day[1]}-${day[2]}-${day[3]}`}
                 className="calendar__day"
                 style={{
@@ -131,7 +135,7 @@ const GithubTracker: React.FC<Props> = ({ cutJobs }) => {
       {/* link to all the jobs on the bottom left corner of the box */}
       <div
         className="linkHolder colorDescription__text"
-        onClick={() => dispatch(setDisplay("jobs"))}
+        onClick={onSeeAllClick}
       >
         <div>See all the jobs</div>
       </div>

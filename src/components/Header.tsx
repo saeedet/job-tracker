@@ -3,8 +3,9 @@ import { useContextProvider } from "../context/StateProvider";
 import { giveMeSortedJobs } from "../utils/utils";
 import "../styles/Header.css";
 import { displayInput, setDisplay, setJobs } from "../context/reducer";
+import { Display } from "../types/reducerTypes";
 
-const Header: React.FC = () => {
+const Header = () => {
   const [{ display, jobs }, dispatch] = useContextProvider();
   const [sort, setSort] = useState<string>("date");
   const [moved, setMoved] = useState<number>(0);
@@ -23,7 +24,7 @@ const Header: React.FC = () => {
   }, [jobs]);
 
   // Tab onclick function to change the display
-  const handleTabChange = (tab: string) => {
+  const handleTabChange = (tab: Display) => {
     dispatch(setDisplay(tab));
   };
 
@@ -89,25 +90,27 @@ const Header: React.FC = () => {
         <div>
           <div
             className={`jobs__tab ${
-              display === "jobs" && "jobs__tab__selected"
+              display === Display.JOBS && "jobs__tab__selected"
             }`}
-            onClick={() => handleTabChange("jobs")}
+            onClick={() => handleTabChange(Display.JOBS)}
           >
             <div
               className="connection__line"
-              style={{ display: display === "jobs" ? "flex" : "none" }}
+              style={{ display: display === Display.JOBS ? "flex" : "none" }}
             />
             Jobs
           </div>
           <div
             className={`calendar__tab ${
-              display === "calendar" && "calendar__tab__selected"
+              display === Display.CALENDAR && "calendar__tab__selected"
             }`}
-            onClick={() => handleTabChange("calendar")}
+            onClick={() => handleTabChange(Display.CALENDAR)}
           >
             <div
               className="connection__line"
-              style={{ display: display === "calendar" ? "flex" : "none" }}
+              style={{
+                display: display === Display.CALENDAR ? "flex" : "none",
+              }}
             />
             Commits
           </div>
