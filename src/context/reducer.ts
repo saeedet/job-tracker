@@ -5,7 +5,6 @@ import { States, CtxAction, Display } from "../types/reducerTypes";
 export const initialState: States = {
   display: Display.JOBS,
   jobs: [],
-  selectedJobId: "",
   displayInput: false,
   displayDetails: false,
 };
@@ -36,10 +35,14 @@ export const selectJob = (selectedJobId: string): CtxAction => ({
     selectedJobId,
   },
 });
-export const displayInput = (displayInput: boolean): CtxAction => ({
+export const setDisplayInput = (
+  displayInput: boolean,
+  selectedDate?: string
+): CtxAction => ({
   type: DISPLAY_INPUT,
   payload: {
     displayInput,
+    selectedDate,
   },
 });
 export const displayDetails = (displayDetails: boolean): CtxAction => ({

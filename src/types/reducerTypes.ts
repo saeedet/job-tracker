@@ -3,7 +3,8 @@ import { Job } from "./JobTypes";
 export interface States {
   display: Display;
   jobs: [] | Job[];
-  selectedJobId: string;
+  selectedJobId?: string;
+  selectedDate?: string;
   displayInput: boolean;
   displayDetails: boolean;
 }

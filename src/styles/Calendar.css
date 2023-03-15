@@ -107,7 +107,6 @@
 }
 .calendar__day {
   border: 1px solid rgba(27, 31, 35, 0.06);
-
   border-radius: 2px;
   position: relative;
 }
@@ -123,7 +122,6 @@
   position: absolute;
   bottom: 12px;
   right: 50%;
-  /* transform: translateX(50%); */
   width: max-content;
   background-color: rgba(0, 0, 0, 0.753);
   border-radius: 5px;
@@ -133,11 +131,23 @@
 }
 .calendar__bottom {
   height: 100%;
-  border-top: 1px solid gray;
+  /* border-top: 1px solid gray; */
 }
 .calendar__jobs {
   justify-content: center;
   margin-top: 20px;
+}
+.calendar__jobs > button {
+  height: 60px;
+  width: 60px;
+  margin: 5px;
+  cursor: pointer;
+  font-size: x-large;
+  font-weight: bold;
+  background-color: transparent;
+}
+.calendar__jobs > button:hover {
+  opacity: 0.6;
 }
 .calendar__day__info > div {
   font-size: small;
@@ -161,4 +171,28 @@
   background-color: white;
   padding: 50px;
   text-align: center;
+}
+.calendar__empty > div {
+  margin-top: 20px;
+  font-size: 12px;
+}
+.calendar__empty > button {
+  margin-top: 20px;
+  font-size: 12px;
+  background-color: #40c463;
+  border: 1px solid white;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  height: 25px;
+  width: 90px;
+}
+.calendar__empty > button:hover {
+  color: white;
+  box-shadow: 0 0 2px rgb(80, 74, 74);
+}
+.calendar__empty > button:active {
+  color: rgb(8, 73, 8);
+  transform: scale(0.95);
+  box-shadow: none;
 }

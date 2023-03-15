@@ -5,10 +5,10 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { Job } from "../types/JobTypes";
 import { useContextProvider } from "../context/StateProvider";
-import { displayInput, setJobs } from "../context/reducer";
+import { setDisplayInput, setJobs } from "../context/reducer";
 
 const JobInput = () => {
-  const [{ jobs }, dispatch] = useContextProvider();
+  const [{ jobs, selectedDate }, dispatch] = useContextProvider();
   const companyRef = useRef<HTMLInputElement>(null);
   const jobTitleRef = useRef<HTMLInputElement>(null);
   const [jobText, setJobText] = useState<string>("");
@@ -18,17 +18,17 @@ const JobInput = () => {
     event: React.FormEvent<HTMLFormElement | HTMLButtonElement>
   ) => {
     event.preventDefault();
-    let newJobObject: Job = {
+    const newJobObject: Job = {
       id: uuidv4(),
       company: companyRef.current.value,
       title: jobTitleRef.current.value,
       text: jobText,
       status: "applied",
-      date: new Date().toString(),
+      date: selectedDate ?? new Date().toString(),
     };
 
     dispatch(setJobs([...jobs, newJobObject]));
-    dispatch(displayInput(false));
+    dispatch(setDisplayInput(false));
   };
   return (
     <form className="jobInput" onSubmit={submitHandler}>

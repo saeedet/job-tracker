@@ -185,7 +185,6 @@ export const giveMeYearArray = (): string[][] => {
       calendar.push([week[weekFlag2], months[monthFlag2], date2, yearFlag2]);
     }
   }
-  console.log(calendar);
   return calendar;
 };
 
@@ -234,7 +233,6 @@ export const giveMeGithubBox = (jobs: Job[]): Day[] => {
   for (let i = 0; i < weeklyYear.length; i++) {
     finalArray.push(weeklyYear[i].reverse());
   }
-  console.log(finalArray);
   return finalArray.reverse();
 };
 
